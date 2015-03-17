@@ -42,7 +42,7 @@ public class Board {
     }
 
     public Piece getPieceFromCoordinate(int row, int column) {
-	Piece thisIsOnCoordinate = gameField[row][column];
+	Piece thisIsOnCoordinate = gameField[column][row];
 	return thisIsOnCoordinate;
     }
 

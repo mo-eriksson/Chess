@@ -10,8 +10,6 @@ public class TestChessBoard {
 
     public static void main(String[] args) {
 	Board testBoard = new Board(BOARD_HIEGHT, BOARD_WIDTH);
-        JFrame testFrame = new chessFrame("YOLO", testBoard);
-        //System.out.println(BoardToTextConverter.convertToText(testBoard));
-
+    JFrame testFrame = new ChessFrame("YOLO", testBoard);
     }
 }
