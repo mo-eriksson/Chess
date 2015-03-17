@@ -1,27 +1,11 @@
 package se.liu.ida.dinadress.tddd78.chess;
 
-public class Pawn implements ChessPiece {
-    private Board board;
-    private Piece piece;
+public class Pawn extends AbstractChessPiece {
 
-    public Pawn(final Board board, final Piece piece) {
-        this.board = board;
-        this.piece = piece;
-    }
+    private
 
-    @Override public boolean isMovable() {
-	return false;
-    }
-
-    @Override public int getXCoordinate() {
-	return 0;
-    }
-
-    @Override public int getYCoordinate() {
-	return 0;
-    }
-
-    @Override public void getType() {
+    public Pawn(Board board, Piece piece) {
+        super(board, piece);
 
     }
 }

@@ -7,14 +7,22 @@ public abstract class AbstractChessPiece implements ChessPiece {
     protected Board board;
     protected Piece piece;
 
-    public AbstractChessPiece(final Board board, final Piece piece) {
+    public AbstractChessPiece(Board board, Piece piece) {
         this.board = board;
         this.piece = piece;
     }
 
-    @Override public boolean isMovable() {
-	return false;
+    public boolean validMove(int newXCoordinate, int newYCoordinate, Piece[][] gameField ){
+
     }
+
+    public void setPosition( int newXCoordinate, int newYCoordinate){
+        setPosition(newXCoordinate, newYCoordinate);
+    }
+
+
+
+    @Override public boolean isMovable() {return false;}
 
     @Override public int getXCoordinate() {
 	return 0;
@@ -24,6 +32,5 @@ public abstract class AbstractChessPiece implements ChessPiece {
 	return 0;
     }
 
-    @Override public void getType() {
-    }
+    @Override public void getType() {}
 }

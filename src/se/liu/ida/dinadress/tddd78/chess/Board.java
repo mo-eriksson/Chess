@@ -57,4 +57,16 @@ public class Board {
     public Piece[][] getGameField() {
 	return gameField;
     }
+
+    public void setBoardHeight(int boardHeight) {
+        this.boardHeight = boardHeight;
+    }
+
+    public void setBoardWidth(int boardWidth) {
+        this.boardWidth = boardWidth;
+    }
+
+    public void setGameField(Piece[][] gameField) {
+        this.gameField = gameField;
+    }
 }
