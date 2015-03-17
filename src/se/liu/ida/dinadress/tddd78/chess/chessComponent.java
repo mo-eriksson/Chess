@@ -1,3 +1,5 @@
+package se.liu.ida.dinadress.tddd78.chess;
+
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,3 +1,5 @@
+package se.liu.ida.dinadress.tddd78.chess;
+
 /**
  * Created by ame on 2015-02-05.
  */

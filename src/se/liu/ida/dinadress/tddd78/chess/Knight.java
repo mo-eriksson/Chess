@@ -1,12 +1,7 @@
-public class Queen implements ChessPiece {
-    private Board board;
-    private Piece piece;
+package se.liu.ida.dinadress.tddd78.chess;
 
-    public Queen(final Board board, final Piece piece) {
-        this.board = board;
-        this.piece = piece;
-    }
-
+public class Knight implements ChessPiece
+{
     @Override public boolean isMovable() {
 	return false;
     }

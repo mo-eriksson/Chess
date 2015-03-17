@@ -1,3 +1,5 @@
+package se.liu.ida.dinadress.tddd78.chess;
+
 /**
  * The class that is responsible for keeping check on the board and tell other classes when it is updated
  */
