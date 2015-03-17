@@ -1,8 +1,13 @@
-public class Pawn implements ChessPiece {
-    private Board board;
-    private Piece piece;
+package se.liu.ida.dinadress.tddd78.chess;
 
-    public Pawn(final Board board, final Piece piece) {
+/**
+ *
+ */
+public abstract class AbstractChessPiece implements ChessPiece {
+    protected Board board;
+    protected Piece piece;
+
+    public AbstractChessPiece(final Board board, final Piece piece) {
         this.board = board;
         this.piece = piece;
     }
@@ -20,6 +25,5 @@ public class Pawn implements ChessPiece {
     }
 
     @Override public void getType() {
-
     }
 }

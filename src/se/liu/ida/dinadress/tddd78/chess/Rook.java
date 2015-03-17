@@ -1,3 +1,5 @@
+package se.liu.ida.dinadress.tddd78.chess;
+
 public class Rook implements ChessPiece {
     private Board board;
     private Piece piece;

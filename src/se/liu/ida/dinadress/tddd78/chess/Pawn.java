@@ -1,8 +1,10 @@
-public class Bishop implements ChessPiece {
+package se.liu.ida.dinadress.tddd78.chess;
+
+public class Pawn implements ChessPiece {
     private Board board;
     private Piece piece;
 
-    public Bishop(final Board board, final Piece piece) {
+    public Pawn(final Board board, final Piece piece) {
         this.board = board;
         this.piece = piece;
     }
