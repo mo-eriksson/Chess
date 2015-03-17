@@ -1,5 +1,7 @@
 package se.liu.ida.dinadress.tddd78.chess;
 
+import sun.awt.X11.ColorEntry;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.EnumMap;
@@ -9,7 +11,7 @@ import java.util.Map;
  * Paint class
  */
 public class ChessComponent extends JComponent {
-    private static final int SQUARE_SIDE = 120;
+    private static final int SQUARE_SIDE = 90;
     private Board board;
 
     public ChessComponent(Board board) {
@@ -58,6 +60,7 @@ public class ChessComponent extends JComponent {
 
         colorMapping.put(Piece.EMPTY_WHITE, Color.WHITE);
         colorMapping.put(Piece.EMPTY_BLACK, Color.BLACK);
+        colorMapping.put(Piece.BOARDER, Color.LIGHT_GRAY);
 
 
         return colorMapping.get(piece);

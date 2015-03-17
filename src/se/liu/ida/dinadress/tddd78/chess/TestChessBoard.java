@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class TestChessBoard {
 
-    private static final int BOARD_HIEGHT = 8; // Standard size of chess board
-    private static final int BOARD_WIDTH = 8;
+    private static final int BOARD_HIEGHT = 9; // Standard size of chess board
+    private static final int BOARD_WIDTH = 9;
 
 
     public static void main(String[] args) {

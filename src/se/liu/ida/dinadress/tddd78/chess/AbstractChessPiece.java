@@ -13,7 +13,7 @@ public abstract class AbstractChessPiece implements ChessPiece {
     }
 
     public boolean validMove(int newXCoordinate, int newYCoordinate, Piece[][] gameField ){
-
+        return false;
     }
 
     public void setPosition( int newXCoordinate, int newYCoordinate){
