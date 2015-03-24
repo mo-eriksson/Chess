@@ -6,4 +6,6 @@ public class Pawn extends AbstractChessPiece {
         super(board, piece);
 
     }
+    
+    public void simpleMove(boardHeight)
 }

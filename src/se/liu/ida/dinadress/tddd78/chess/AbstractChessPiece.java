@@ -20,6 +20,10 @@ public abstract class AbstractChessPiece implements ChessPiece {
         setPosition(newXCoordinate, newYCoordinate);
     }
 
+    public void move forvard
+
+
+
 
 
     @Override public boolean isMovable() {return false;}
