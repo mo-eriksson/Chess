@@ -1,9 +1,11 @@
 package se.liu.ida.dinadress.tddd78.chess;
 
+import java.awt.*;
+
 public class Rook extends AbstractChessPiece {
 
-    public Rook(final Board board, final Piece piece) {
-        super(board, piece);
+    public Rook(Board board, Piece piece, Color color) {
+        super(board, piece, color);
     }
 
 }

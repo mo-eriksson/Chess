@@ -1,5 +1,7 @@
 package se.liu.ida.dinadress.tddd78.chess;
 
+import java.util.ArrayList;
+
 /**
  * The class that is responsible for keeping check on the board and tell other classes when it is updated
  */
@@ -19,37 +21,18 @@ public class Board {
 	this.boardHeight = boardHeight;
 	this.gameField = new Piece[boardHeight][boardWidth];
 
-	for (int row = 0; row < boardHeight; row++) {
-	    for (int column = 0; column < boardWidth; column++) {
+    }
+    public Piece[][] setStartPosition() {
+        ArrayList<Piece> firstRowPos = new ArrayList();
+        firstRowPos.add(Piece.ROOK), Piece.KNIGHT, Piece.BISHOP, Piece.QUEEN, Piece.KING, Piece.BISHOP, Piece.KNIGHT, Piece.ROOK)
+        Piece[][] startPosition = new Piece[][]{
+                {Piece.ROOK, Piece.KNIGHT, Piece.BISHOP, Piece.QUEEN, Piece.KING, Piece.BISHOP, Piece.KNIGHT, Piece.ROOK}};
 
-		if (row == 0 || (column == 0)) {
-			gameField[row][column] = Piece.BOARDER;
-		}
-		else if (row % 2 == 0) {
-		    gameField[row][column] = Piece.EMPTY_BLACK;
-		    if (column % 2 == 0) {
-			gameField[row][column] = Piece.EMPTY_BLACK;
-		    } else {
-			gameField[row][column] = Piece.EMPTY_WHITE;
-		    }
-		}
+        return setGameField();
 
-		else {
-		    gameField[row][column] = Piece.EMPTY_WHITE;
-
-		    if (column % 2 != 0) {
-			gameField[row][column] = Piece.EMPTY_BLACK;
-		    } else {
-			gameField[row][column] = Piece.EMPTY_WHITE;
-		    }
-		}
-	    }
-	}
     }
 
-	private void setGameField() {
-		gameField[1][1] = Piece.BISHOP;
-	}
+
 
     public Piece getPieceFromCoordinate(int row, int column) {
 	Piece thisIsOnCoordinate = gameField[column][row];

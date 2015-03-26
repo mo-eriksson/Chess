@@ -1,33 +1,35 @@
 package se.liu.ida.dinadress.tddd78.chess;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
 
 public class ChessFrame extends JFrame {
-    private Board board;
+  private Board board;
 
 
 
-    public ChessFrame(String title, Board board) throws HeadlessException {
-      super(title);
-      this.board = board;
+  public ChessFrame(String title, Board board) throws HeadlessException {
+    super(title);
+    this.board = board;
 
-      //this.setJMenuBar(createMenuBar());
+    //this.setJMenuBar(createMenuBar());
 
-      ChessComponent tetrisComponent = new ChessComponent(board); // add it self to board listener, moved to tetrisComponent
-      //board.addBoardListener(tetrisComponent);
+    ChessComponent chessComponent = new ChessComponent(board); // add it self to board listener, moved to tetrisComponent
+    //board.addBoardListener(tetrisComponent);
 
-      this.setLayout(new BorderLayout());
-      this.add(BorderLayout.CENTER, tetrisComponent);
-      //this.add(BorderLayout.SOUTH, makePointJTextArea());
+    this.setLayout(new BorderLayout());
+    this.add(BorderLayout.CENTER, chessComponent);
+    //this.add(BorderLayout.SOUTH, makePointJTextArea());
 
-      this.pack();
-      this.setVisible(true);
+    this.pack();
+    this.setVisible(true);
   }
 
-    private JTextArea tempFunc() {
-	// old, not used anymore
-	JTextArea jTextArea = new JTextArea(BoardToTextConverter.convertToText(board));
-	return jTextArea;
-    }
+
+
+
 }

@@ -5,5 +5,5 @@ package se.liu.ida.dinadress.tddd78.chess;
  */
 
 public enum Piece {
-    KING, QUEEN, ROOK, BISHOP, KNIGHT, PAWN, EMPTY_BLACK, EMPTY_WHITE, BOARDER
+    KING, QUEEN, ROOK, BISHOP, KNIGHT, PAWN, EMPTY, BOARDER
 }

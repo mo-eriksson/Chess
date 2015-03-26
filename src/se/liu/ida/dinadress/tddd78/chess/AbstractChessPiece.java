@@ -1,15 +1,19 @@
 package se.liu.ida.dinadress.tddd78.chess;
 
+import java.awt.*;
+
 /**
  *
  */
 public abstract class AbstractChessPiece implements ChessPiece {
     protected Board board;
     protected Piece piece;
+    protected Color color;
 
-    public AbstractChessPiece(Board board, Piece piece) {
+    public AbstractChessPiece(Board board, Piece piece, Color color) {
         this.board = board;
         this.piece = piece;
+        this.color = color;
     }
 
     public boolean validMove(int newXCoordinate, int newYCoordinate, Piece[][] gameField ){
@@ -33,4 +37,6 @@ public abstract class AbstractChessPiece implements ChessPiece {
     }
 
     @Override public void getType() {}
+
+    @Override public Color getColor() { return color;}
 }
