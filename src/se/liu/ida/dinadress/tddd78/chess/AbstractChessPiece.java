@@ -16,9 +16,9 @@ public abstract class AbstractChessPiece implements ChessPiece {
         return false;
     }
 
-    public void setPosition( int newXCoordinate, int newYCoordinate){
-        setPosition(newXCoordinate, newYCoordinate);
-    }
+    //public void setPosition( int newXCoordinate, int newYCoordinate){
+      //  setPosition(newXCoordinate, newYCoordinate);
+    //}
 
 
 

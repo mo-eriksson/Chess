@@ -47,6 +47,10 @@ public class Board {
 	}
     }
 
+	private void setGameField() {
+		gameField[1][1] = Piece.BISHOP;
+	}
+
     public Piece getPieceFromCoordinate(int row, int column) {
 	Piece thisIsOnCoordinate = gameField[column][row];
 	return thisIsOnCoordinate;

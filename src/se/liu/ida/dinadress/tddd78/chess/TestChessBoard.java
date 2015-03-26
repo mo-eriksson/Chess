@@ -1,10 +1,10 @@
 package se.liu.ida.dinadress.tddd78.chess;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 public class TestChessBoard {
 
-    private static final int BOARD_HIEGHT = 9; // Standard size of chess board
+    private static final int BOARD_HIEGHT = 9; // Standard size of chess board + one for boarder
     private static final int BOARD_WIDTH = 9;
 
 
