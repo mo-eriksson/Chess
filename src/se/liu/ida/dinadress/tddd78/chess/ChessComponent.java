@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumMap;
@@ -15,7 +16,7 @@ import javax.swing.ImageIcon;
 /**
  * Paint class
  */
-public class ChessComponent extends JComponent {
+public class ChessComponent extends JComponent implements Composite {
     private static final int SQUARE_SIDE = 90;
     private Board board;
     //private final Icon king = null;
@@ -39,13 +40,19 @@ public class ChessComponent extends JComponent {
          */
         setBackground(g2d);
 
-        //for (int row = 0; row < board.getBoardHeight(); row++) {
-        //for (int col = 0; col < board.getBoardWidth(); col++) {
-        //drawBlock(row, col, g2d);
 
-        //  }
-        //}
-        //drawPieceImage(90,90, "kingBlack", this, g2d);
+        for (int row = 0; row < board.getBoardHeight(); row++) {
+            for (int col = 0; col < board.getBoardWidth(); col++) {
+                if (board.getPieceFromCoordinate(row, col) != Piece.EMPTY) {
+                    String player = "White";
+                    if (col == 0 || col == 1){
+                        player = "Black";
+                    }
+                    drawPieceImage(SQUARE_SIDE * row, SQUARE_SIDE * col, board.getPieceFromCoordinate(row, col), player, this, g2d);
+                }
+            }
+        }
+
     }
     private void drawBlock(int row, int col, Graphics2D g2d) {
         /**
@@ -62,6 +69,7 @@ public class ChessComponent extends JComponent {
         g2d.setColor(Color.BLACK);
         g2d.drawRect(startX, startY, SQUARE_SIDE, SQUARE_SIDE);
     }
+
     private void setBackground(Graphics2D g2d) {
         for (int row = 0; row < board.getBoardHeight(); row++) {
             for (int column = 0; column < board.getBoardWidth(); column++) {
@@ -81,69 +89,54 @@ public class ChessComponent extends JComponent {
         }
     }
 
-    private void drawPieceImage(int x, int y, String pieceName, JComponent jComponent , Graphics2D g2d) {
-        getPieceImage(pieceName).paintIcon(jComponent, g2d, x, y);
+    private void drawPieceImage(int x, int y, Piece piece, String player, JComponent jComponent , Graphics2D g2d) {
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 0.5));
+        IconMaping(piece, player).paintIcon(jComponent, g2d, x, y);
     }
 
-    /**
-     *
-     *
-     *
+    private Icon IconMaping(Piece piece, String player) {
+        Map<Piece, Icon> iconMaping = new EnumMap<>(Piece.class);
+        iconMaping.put(Piece.BISHOP, getPieceImage("bishop", player));
+        //iconMaping.put(Piece.BISHOP_WHITE, getPieceImage("bishopWhite"));
 
-     private Icon IconMaping(Piece piece){
-     Map<Piece, Icon> iconMaping = new EnumMap<>(Piece.class);
-     iconMaping.put(Piece.BISHOP_BLACK, getPieceImage("bishopBlack"));
-     iconMaping.put(Piece.BISHOP_WHITE, getPieceImage("bishopWhite"));
+        iconMaping.put(Piece.KING, getPieceImage("king", player));
+        //iconMaping.put(Piece.KING_WHITE, getPieceImage("kingWhite"));
 
-     iconMaping.put(Piece.KING_BLACK, getPieceImage("kingBlack"));
-     iconMaping.put(Piece.KING_WHITE, getPieceImage("kingWhite"));
+        iconMaping.put(Piece.PAWN, getPieceImage("pawn", player));
+        //iconMaping.put(Piece.PAWN_WHITE, getPieceImage("pawnWhite"));
 
-     iconMaping.put(Piece.PAWN_BLACK, getPieceImage("pawnBlack"));
-     iconMaping.put(Piece.PAWN_WHITE, getPieceImage("pawnWhite"));
+        iconMaping.put(Piece.QUEEN, getPieceImage("queen", player));
+        //iconMaping.put(Piece.QUEEN_WHITE, getPieceImage("queenWhite"));
 
-     iconMaping.put(Piece.QUEEN_BLACK, getPieceImage("queenBlack"));
-     iconMaping.put(Piece.QUEEN_WHITE, getPieceImage("queenWhite"));
+        iconMaping.put(Piece.KNIGHT, getPieceImage("hourse", player));
+        //iconMaping.put(Piece.KNIGHT_WHITE, getPieceImage("hourseWhite"));
 
-     iconMaping.put(Piece.KNIGHT_BLACK, getPieceImage("hourseBlack"));
-     iconMaping.put(Piece.KNIGHT_WHITE, getPieceImage("hourseWhite"));
+        iconMaping.put(Piece.ROOK, getPieceImage("tower", player));
+        //iconMaping.put(Piece.ROOK_WHITE, getPieceImage("towerWhite"));
 
-     *iconMaping.put(Piece.ROOK_BLACK, getPieceImage("towerBlack"));
-     *iconMaping.put(Piece.ROOK_WHITE, getPieceImage("towerWhite"));
-
-     * return iconMaping.get(piece);
-     *}
-     */
-
-    private Color colorMapping(Piece piece) {
-        /**
-         * map each square type to a separate color
-         */
-        Map<Piece, Color> colorMapping = new EnumMap<>(Piece.class);
-
-        //colorMapping.put(Piece.EMPTY_WHITE, Color.WHITE);
-        //colorMapping.put(Piece.EMPTY_BLACK, Color.BLACK);
-        colorMapping.put(Piece.BOARDER, Color.LIGHT_GRAY);
-
-
-        return colorMapping.get(piece);
+        return iconMaping.get(piece);
     }
+
 
 
     @Override public Dimension getPreferredSize() {
         return super.getPreferredSize();
     }
-    private Icon getPieceImage(String pieceName) {
+    private Icon getPieceImage(String pieceName, String player) {
         BufferedImage myPic = null;
         try {
-            myPic = ImageIO.read(new File("src/se/liu/ida/dinadress/tddd78/chess/Chess-Pieces-Images/" + pieceName + ".PNG"));
+            myPic = ImageIO.read(new File("src/se/liu/ida/dinadress/tddd78/chess/Chess-Pieces-Images/" + pieceName + player + ".PNG"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //JLabel picLabel = new JLabel(new ImageIcon(myPic));
-        //return picLabel;
-        Icon testIcon = new ImageIcon(myPic);
-        return testIcon;
+
+        Icon imageIcon = new ImageIcon(myPic);
+        return imageIcon;
 
     }
 
+    @Override
+    public CompositeContext createContext(ColorModel srcColorModel, ColorModel dstColorModel, RenderingHints hints) {
+        return null;
+    }
 }
