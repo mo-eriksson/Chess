@@ -5,6 +5,7 @@ package se.liu.ida.dinadress.tddd78.chess;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.io.File;
@@ -12,21 +13,64 @@ import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.event.MouseInputAdapter;
+
 
 /**
  * Paint class
  */
 public class ChessComponent extends JComponent implements Composite {
+
     private static final int SQUARE_SIDE = 90;
     private Board board;
+
+
+    private int selectedOldX;
+    private int selectedOldY;
+
+    private int selectedNewX;
+    private int selectedNewY;
+
+    private ChessPiece selectedPiece;
+
+    private boolean clicked = false;
+
+
     //private final Icon king = null;
 
 
     public ChessComponent(Board board) {
 
         this.board = board;
+
         //this.king =
         setPreferredSize(new Dimension(board.getBoardWidth() * SQUARE_SIDE, board.getBoardHeight() * SQUARE_SIDE));
+        addMouseListener(new MouseInputAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int xCoord = e.getX() / SQUARE_SIDE;
+                int yCoord = e.getY() / SQUARE_SIDE;
+
+
+
+                if (isClicked()) {
+                    setSelectedNewX(xCoord);
+                    setSelectedNewY(yCoord);
+
+                    board.movePieceOnField(selectedPiece, selectedNewX, selectedNewY);
+                    board.removeOldPiece(selectedOldX, selectedOldY);
+                    setClicked(false);
+                    repaint();
+
+                }
+                else {
+                    setClicked(true);
+                    setSelectedOldX(xCoord);
+                    setSelectedOldY(yCoord);
+                    setSelectedPiece(board.getPieceFromCoordinate(selectedOldY, selectedOldX));
+                }
+            }
+        });
     }
 
     @Override
@@ -38,17 +82,25 @@ public class ChessComponent extends JComponent implements Composite {
         /**
          *  Goes through all different coordinates in the board and calls the appropriate draw method
          */
-        setBackground(g2d);
+        try {
+            setBackground(g2d);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         for (int row = 0; row < board.getBoardHeight(); row++) {
             for (int col = 0; col < board.getBoardWidth(); col++) {
-                if (board.getPieceFromCoordinate(row, col) != Piece.EMPTY) {
-                    String player = "White";
-                    if (col == 0 || col == 1){
-                        player = "Black";
+                if (board.getPieceFromCoordinate(row, col).getPiece() != Piece.EMPTY) {
+                    String player = "white";
+                    if (row == 0 || row == 1){
+                        player = "black";
                     }
-                    drawPieceImage(SQUARE_SIDE * row, SQUARE_SIDE * col, board.getPieceFromCoordinate(row, col), player, this, g2d);
+                    try {
+                        drawPieceImage(SQUARE_SIDE * col, SQUARE_SIDE * row, board.getPieceFromCoordinate(row, col), player, this, g2d);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -89,12 +141,17 @@ public class ChessComponent extends JComponent implements Composite {
         }
     }
 
-    private void drawPieceImage(int x, int y, Piece piece, String player, JComponent jComponent , Graphics2D g2d) {
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 0.5));
-        IconMaping(piece, player).paintIcon(jComponent, g2d, x, y);
+    private void drawPieceImage(int x, int y, ChessPiece piece, String player, JComponent jComponent , Graphics2D g2d) {
+
+            System.out.println(piece);
+
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 1));
+        iconMaping(piece, player).paintIcon(jComponent, g2d, x, y);
     }
 
-    private Icon IconMaping(Piece piece, String player) {
+    private Icon iconMaping(ChessPiece piece, String player) {
+        System.out.println("ICON");
+
         Map<Piece, Icon> iconMaping = new EnumMap<>(Piece.class);
         iconMaping.put(Piece.BISHOP, getPieceImage("bishop", player));
         //iconMaping.put(Piece.BISHOP_WHITE, getPieceImage("bishopWhite"));
@@ -114,7 +171,7 @@ public class ChessComponent extends JComponent implements Composite {
         iconMaping.put(Piece.ROOK, getPieceImage("tower", player));
         //iconMaping.put(Piece.ROOK_WHITE, getPieceImage("towerWhite"));
 
-        return iconMaping.get(piece);
+        return iconMaping.get(piece.getPiece());
     }
 
 
@@ -138,5 +195,43 @@ public class ChessComponent extends JComponent implements Composite {
     @Override
     public CompositeContext createContext(ColorModel srcColorModel, ColorModel dstColorModel, RenderingHints hints) {
         return null;
+    }
+
+    public void setClicked(boolean clicked) {
+        this.clicked = clicked;
+    }
+
+    public boolean isClicked() {
+        return clicked;
+    }
+
+    private ChessPiece lookUpCoordinatesFromMouse(int y, int x) {
+        ChessPiece currentPiece = board.getPieceFromCoordinate(y, x);
+        System.out.println(currentPiece);
+        return currentPiece;
+    }
+
+    public void setSelectedNewX(int selectedNewX) {
+        this.selectedNewX = selectedNewX;
+    }
+
+    public void setSelectedNewY(int selectedNewY) {
+        this.selectedNewY = selectedNewY;
+    }
+
+    public void setSelectedOldX(int selectedOldX) {
+        this.selectedOldX = selectedOldX;
+    }
+
+    public void setSelectedOldY(int selectedOldY) {
+        this.selectedOldY = selectedOldY;
+    }
+
+    public ChessPiece getSelectedPiece() {
+        return selectedPiece;
+    }
+
+    public void setSelectedPiece(ChessPiece selectedPiece) {
+        this.selectedPiece = selectedPiece;
     }
 }

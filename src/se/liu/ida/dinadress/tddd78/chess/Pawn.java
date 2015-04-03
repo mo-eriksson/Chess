@@ -8,6 +8,14 @@ public class Pawn extends AbstractChessPiece {
         super(board, piece, color);
 
     }
-    
-    public void simpleMove(boardHeight)
+
+    @Override
+    public boolean isMovable() {
+        return false;
+    }
+
+    @Override
+    public boolean validMove(int newXCoordinate, int newYCoordinate) {
+        return false;
+    }
 }

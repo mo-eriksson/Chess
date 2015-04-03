@@ -1,25 +1,25 @@
 package se.liu.ida.dinadress.tddd78.chess;
 
-import java.util.ArrayList;
+import java.awt.*;
+
 
 /**
  * The class that is responsible for keeping check on the board and tell other classes when it is updated
  */
 
 public class Board {
-    private static int BOTTOM_BOARDER = 1;
-    private static int LEFT_BOARDER = -1;
-    private static int BOARD_WIDTH_PLUS_ONE = 9;
+
 
     private int boardHeight;
     private int boardWidth;
+    private String player;
 
-    private Piece[][] gameField;
+    private  ChessPiece[][] gameField;
 
     public Board(int boardHeight, int boardWidth) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
-        this.gameField = new Piece[boardHeight][boardWidth];
+        this.gameField = new ChessPiece[boardHeight][boardWidth];
 
         setStartPosition();
 
@@ -28,71 +28,69 @@ public class Board {
         for (int row = 0; row < boardHeight; row++) {
             for (int column = 0; column < boardWidth; column++) {
 
-                if (column == 0 || column == 7) {
-                    setThisRow(row, column);
+                if (row == 0) {
+                    setThisRow(row, column, Color.BLACK);
                 }
-                    else if (column == 1 || column == 6) {
-                        gameField[row][column] = Piece.PAWN;
-                    }
-                    else {
-                        gameField[row][column] = Piece.EMPTY;
-                    }
+                else if (row == 7) {
+                    setThisRow(row, column, Color.WHITE);
+                                }
+                else if (row == 1) {
+                    gameField[row][column] = new Pawn(this, Piece.PAWN, Color.BLACK);
                 }
-            }
-        for (int i = 0; i < boardHeight; i++) {
-            for (int j = 0; j < boardWidth; j++) {
-                System.out.println(getPieceFromCoordinate(i,j));
-            }
-        }
-        }
-
-    private void setThisRow(int row, int column) {
-            switch (row) {
-
-                case 0:
-                    gameField[row][column] = Piece.ROOK;
-                    break;
-                case 1:
-                    gameField[row][column] = Piece.KNIGHT;
-                    break;
-                case 2:
-                    gameField[row][column] = Piece.BISHOP;
-                    break;
-                case 3:
-                    gameField[row][column] = Piece.QUEEN;
-                    break;
-                case 4:
-                    gameField[row][column] = Piece.KING;
-                    break;
-                case 5:
-                    gameField[row][column] = Piece.BISHOP;
-                    break;
-                case 6:
-                    gameField[row][column] = Piece.KNIGHT;
-                    break;
-                case 7:
-                    gameField[row][column] = Piece.ROOK;
-                    break;
+                else if (row == 6) {
+                    gameField[row][column] = new Pawn(this, Piece.PAWN, Color.WHITE);
+                }
+                else {
+                    gameField[row][column] = new Empty(this, Piece.EMPTY, Color.BLUE);
+                }
 
             }
         }
-    private Piece setPiecePos(int col){
-        ArrayList<Piece> pieceList = new ArrayList<>();
-        pieceList.add(Piece.ROOK);
-        pieceList.add(Piece.KNIGHT);
-        pieceList.add(Piece.BISHOP);
-        pieceList.add(Piece.QUEEN);
-        pieceList.add(Piece.KING);
-        pieceList.add(Piece.BISHOP);
-        pieceList.add(Piece.KNIGHT);
-        pieceList.add(Piece.ROOK);
-        return pieceList.get(col);
     }
 
 
+    private void setThisRow(int row, int column, Color color) {
+        switch (column) {
 
-    public Piece getPieceFromCoordinate(int row, int column) {
-        Piece thisIsOnCoordinate = gameField[row][column];
+            case 0:
+                gameField[row][column] = new Rook(this, Piece.ROOK, color);
+                break;
+            case 1:
+                gameField[row][column] = new Knight(this, Piece.KNIGHT, color);
+                break;
+            case 2:
+                gameField[row][column] = new Bishop(this, Piece.BISHOP, color);
+                break;
+            case 3:
+                gameField[row][column] = new Queen(this, Piece.QUEEN, color);
+                break;
+            case 4:
+                gameField[row][column] = new King(this, Piece.KING, color);
+                break;
+            case 5:
+                gameField[row][column] = new Bishop(this, Piece.BISHOP, color);
+                break;
+            case 6:
+                gameField[row][column] = new Knight(this, Piece.KNIGHT, color);
+                break;
+            case 7:
+                gameField[row][column] = new Rook(this, Piece.ROOK, color);
+                break;
+
+        }
+    }
+
+    public void movePieceOnField(ChessPiece chessPiece, int xNew, int yNew) {
+        System.out.println(getPieceFromCoordinate(yNew, xNew));
+        gameField[yNew][xNew] = chessPiece;
+    }
+    public void removeOldPiece(int selectedOldX, int selectedOldY) {
+        gameField[selectedOldY][selectedOldX] = new Empty(this, Piece.EMPTY, Color.BLUE);
+
+    }
+
+    public ChessPiece getPieceFromCoordinate(int row, int column) {
+        ChessPiece thisIsOnCoordinate = gameField[row][column];
         return thisIsOnCoordinate;
     }
 
@@ -104,7 +102,7 @@ public class Board {
         return boardWidth;
     }
 
-    public Piece[][] getGameField() {
+    public ChessPiece [][] getGameField() {
         return gameField;
     }
 
@@ -116,7 +114,7 @@ public class Board {
         this.boardWidth = boardWidth;
     }
 
-    public void setGameField(Piece[][] gameField) {
+    public void setGameField(ChessPiece [][] gameField) {
         this.gameField = gameField;
     }
 }

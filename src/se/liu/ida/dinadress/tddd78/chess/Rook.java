@@ -8,4 +8,13 @@ public class Rook extends AbstractChessPiece {
         super(board, piece, color);
     }
 
+    @Override
+    public boolean isMovable() {
+        return false;
+    }
+
+    @Override
+    public boolean validMove(int newXCoordinate, int newYCoordinate) {
+        return false;
+    }
 }
