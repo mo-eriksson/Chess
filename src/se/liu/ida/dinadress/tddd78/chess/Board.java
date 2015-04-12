@@ -81,8 +81,10 @@ public class Board {
     }
 
     public void movePieceOnField(ChessPiece chessPiece, int xNew, int yNew) {
-        System.out.println(getPieceFromCoordinate(yNew, xNew));
-        gameField[yNew][xNew] = chessPiece;
+        //System.out.println(getPieceFromCoordinate(yNew, xNew));
+        //if (isValidMove(chessPiece, xNew, yNew)); {
+            gameField[yNew][xNew] = chessPiece;
+        //}
     }
     public void removeOldPiece(int selectedOldX, int selectedOldY) {
         gameField[selectedOldY][selectedOldX] = new Empty(this, Piece.EMPTY, Color.BLUE);
@@ -92,6 +94,11 @@ public class Board {
     public ChessPiece getPieceFromCoordinate(int row, int column) {
         ChessPiece thisIsOnCoordinate = gameField[row][column];
         return thisIsOnCoordinate;
+    }
+
+    private boolean isValidMove(ChessPiece chessPiece, int xNew, int yNew) {
+        boolean validMove = false;
+        return validMove;
     }
 
     public int getBoardHeight() {

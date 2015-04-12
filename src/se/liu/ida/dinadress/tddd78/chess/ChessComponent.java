@@ -53,7 +53,11 @@ public class ChessComponent extends JComponent implements Composite {
 
 
 
-                if (isClicked()) {
+                if (isClicked() && selectedOldX == xCoord && selectedOldY == yCoord) {
+                    setClicked(false);
+
+                }
+                else if (isClicked()) {
                     setSelectedNewX(xCoord);
                     setSelectedNewY(yCoord);
 
@@ -63,6 +67,7 @@ public class ChessComponent extends JComponent implements Composite {
                     repaint();
 
                 }
+
                 else {
                     setClicked(true);
                     setSelectedOldX(xCoord);
