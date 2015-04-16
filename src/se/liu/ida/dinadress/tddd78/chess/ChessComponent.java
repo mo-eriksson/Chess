@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
-import javax.swing.ImageIcon;
 import javax.swing.event.MouseInputAdapter;
 
 
@@ -24,26 +23,20 @@ public class ChessComponent extends JComponent implements Composite {
     private static final int SQUARE_SIDE = 90;
     private Board board;
 
-
     private int selectedOldX;
     private int selectedOldY;
 
     private int selectedNewX;
     private int selectedNewY;
 
-    private ChessPiece selectedPiece;
+    private ChessPiece selectedPiece = null;
 
     private boolean clicked = false;
-
-
-    //private final Icon king = null;
-
 
     public ChessComponent(Board board) {
 
         this.board = board;
 
-        //this.king =
         setPreferredSize(new Dimension(board.getBoardWidth() * SQUARE_SIDE, board.getBoardHeight() * SQUARE_SIDE));
         addMouseListener(new MouseInputAdapter() {
             @Override
@@ -53,26 +46,35 @@ public class ChessComponent extends JComponent implements Composite {
 
 
 
-                if (isClicked() && selectedOldX == xCoord && selectedOldY == yCoord) {
-                    setClicked(false);
+                //if (isClicked() && selectedOldX == xCoord && selectedOldY == yCoord) {
+                  //  setClicked(false);
 
-                }
-                else if (isClicked()) {
+                //}
+                if (isClicked()) {
+                    if (!selectedPiece.validMove(selectedPiece, xCoord, yCoord, selectedOldX, selectedOldY)) {
+                        invalidMoveResetAll();
+                    }
+                    else {
+
                     setSelectedNewX(xCoord);
                     setSelectedNewY(yCoord);
 
+
+                    //System.out.println(board.getPieceOnCoordinate(selectedOldY, selectedOldX).getColor()+"is clicked");
                     board.movePieceOnField(selectedPiece, selectedNewX, selectedNewY);
                     board.removeOldPiece(selectedOldX, selectedOldY);
                     setClicked(false);
-                    repaint();
 
+                    repaint();
+                    }
                 }
 
                 else {
                     setClicked(true);
                     setSelectedOldX(xCoord);
                     setSelectedOldY(yCoord);
-                    setSelectedPiece(board.getPieceFromCoordinate(selectedOldY, selectedOldX));
+                    System.out.println(xCoord + " x and y " + yCoord);
+                    setSelectedPiece(board.getPieceOnCoordinate(selectedOldY, selectedOldX));
                 }
             }
         });
@@ -89,20 +91,16 @@ public class ChessComponent extends JComponent implements Composite {
          */
         try {
             setBackground(g2d);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
         }
 
 
         for (int row = 0; row < board.getBoardHeight(); row++) {
             for (int col = 0; col < board.getBoardWidth(); col++) {
-                if (board.getPieceFromCoordinate(row, col).getPiece() != Piece.EMPTY) {
-                    String player = "white";
-                    if (row == 0 || row == 1){
-                        player = "black";
-                    }
+                if (board.getPieceOnCoordinate(row, col).getPiece() != Piece.EMPTY) {
                     try {
-                        drawPieceImage(SQUARE_SIDE * col, SQUARE_SIDE * row, board.getPieceFromCoordinate(row, col), player, this, g2d);
+                        drawPieceImage(SQUARE_SIDE * col, SQUARE_SIDE * row, board.getPieceOnCoordinate(row, col), this, g2d);
                     } catch (RuntimeException e) {
                         e.printStackTrace();
                     }
@@ -146,37 +144,31 @@ public class ChessComponent extends JComponent implements Composite {
         }
     }
 
-    private void drawPieceImage(int x, int y, ChessPiece piece, String player, JComponent jComponent , Graphics2D g2d) {
+    private void drawPieceImage(int x, int y, ChessPiece chessPiece , JComponent jComponent , Graphics2D g2d) {
 
-            System.out.println(piece);
+            System.out.println(String.valueOf(chessPiece.getColor().getRGB()));
 
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 1));
-        iconMaping(piece, player).paintIcon(jComponent, g2d, x, y);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        iconMaping(chessPiece).paintIcon(jComponent, g2d, x, y);
     }
 
-    private Icon iconMaping(ChessPiece piece, String player) {
-        System.out.println("ICON");
+    private Icon iconMaping(ChessPiece chessPiece) {
 
         Map<Piece, Icon> iconMaping = new EnumMap<>(Piece.class);
-        iconMaping.put(Piece.BISHOP, getPieceImage("bishop", player));
-        //iconMaping.put(Piece.BISHOP_WHITE, getPieceImage("bishopWhite"));
+        iconMaping.put(Piece.BISHOP, getPieceImage("bishop", chessPiece.getColor().getRGB()));
 
-        iconMaping.put(Piece.KING, getPieceImage("king", player));
-        //iconMaping.put(Piece.KING_WHITE, getPieceImage("kingWhite"));
+        iconMaping.put(Piece.KING, getPieceImage("king", chessPiece.getColor().getRGB()));
 
-        iconMaping.put(Piece.PAWN, getPieceImage("pawn", player));
-        //iconMaping.put(Piece.PAWN_WHITE, getPieceImage("pawnWhite"));
+        iconMaping.put(Piece.PAWN, getPieceImage("pawn", chessPiece.getColor().getRGB()));
 
-        iconMaping.put(Piece.QUEEN, getPieceImage("queen", player));
-        //iconMaping.put(Piece.QUEEN_WHITE, getPieceImage("queenWhite"));
+        iconMaping.put(Piece.QUEEN, getPieceImage("queen", chessPiece.getColor().getRGB()));
 
-        iconMaping.put(Piece.KNIGHT, getPieceImage("hourse", player));
-        //iconMaping.put(Piece.KNIGHT_WHITE, getPieceImage("hourseWhite"));
+        iconMaping.put(Piece.KNIGHT, getPieceImage("hourse", chessPiece.getColor().getRGB()));
 
-        iconMaping.put(Piece.ROOK, getPieceImage("tower", player));
-        //iconMaping.put(Piece.ROOK_WHITE, getPieceImage("towerWhite"));
+        iconMaping.put(Piece.ROOK, getPieceImage("tower", chessPiece.getColor().getRGB()));
 
-        return iconMaping.get(piece.getPiece());
+
+        return iconMaping.get(chessPiece.getPiece());
     }
 
 
@@ -184,10 +176,22 @@ public class ChessComponent extends JComponent implements Composite {
     @Override public Dimension getPreferredSize() {
         return super.getPreferredSize();
     }
-    private Icon getPieceImage(String pieceName, String player) {
+
+    private Icon getPieceImage(String pieceName, int colorIntValue) {
+        // player color maight bee null
+        int intWhiteColorValue = -1;
+        int intBlackColorValue = -16777216;
+        String playerColor = null;
+
         BufferedImage myPic = null;
+        if (colorIntValue == intWhiteColorValue) {
+            playerColor = "white";
+        }
+        else if(colorIntValue == intBlackColorValue){
+            playerColor = "black";
+        }
         try {
-            myPic = ImageIO.read(new File("src/se/liu/ida/dinadress/tddd78/chess/Chess-Pieces-Images/" + pieceName + player + ".PNG"));
+            myPic = ImageIO.read(new File("src/se/liu/ida/dinadress/tddd78/chess/Chess-Pieces-Images/" + pieceName + playerColor + ".PNG"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -211,9 +215,13 @@ public class ChessComponent extends JComponent implements Composite {
     }
 
     private ChessPiece lookUpCoordinatesFromMouse(int y, int x) {
-        ChessPiece currentPiece = board.getPieceFromCoordinate(y, x);
+        ChessPiece currentPiece = board.getPieceOnCoordinate(y, x);
         System.out.println(currentPiece);
         return currentPiece;
+    }
+
+    public void invalidMoveResetAll(){
+        setClicked(false);
     }
 
     public void setSelectedNewX(int selectedNewX) {
@@ -239,4 +247,6 @@ public class ChessComponent extends JComponent implements Composite {
     public void setSelectedPiece(ChessPiece selectedPiece) {
         this.selectedPiece = selectedPiece;
     }
+
+
 }

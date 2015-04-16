@@ -10,7 +10,7 @@ public abstract class AbstractChessPiece implements ChessPiece {
     protected Piece piece;
     protected Color color;
 
-    public AbstractChessPiece(Board board, Piece piece, Color color) {
+    protected AbstractChessPiece(Board board, Piece piece, Color color) {
         this.board = board;
         this.piece = piece;
         this.color = color;
@@ -30,4 +30,14 @@ public abstract class AbstractChessPiece implements ChessPiece {
 
     @Override public Color getColor() {
         return color;}
+
+    @Override
+    public boolean isMovable() {
+        return false;
+    }
+
+    @Override
+    public boolean validMove(ChessPiece chessPiece, int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate) {
+        return false;
+    }
 }

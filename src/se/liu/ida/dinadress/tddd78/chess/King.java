@@ -17,7 +17,7 @@ public class King extends AbstractChessPiece {
     }
 
     @Override
-    public boolean validMove(int newXCoordinate, int newYCoordinate) {
+    public boolean validMove(ChessPiece chessPiece,int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate) {
         return false;
     }
 }

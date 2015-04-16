@@ -6,7 +6,7 @@ public interface ChessPiece {
 
     public boolean isMovable();
 
-    boolean validMove(int newXCoordinate, int newYCoordinate);
+    boolean validMove(ChessPiece chessPiece, int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate);
 
     public int getXCoordinate();
 
@@ -15,4 +15,6 @@ public interface ChessPiece {
     public Piece getPiece();
 
     public Color getColor();
+
+
 }

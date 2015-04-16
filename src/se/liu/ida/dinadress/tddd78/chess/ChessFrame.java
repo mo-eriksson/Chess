@@ -1,11 +1,10 @@
 package se.liu.ida.dinadress.tddd78.chess;
 
-import javafx.scene.layout.GridPane;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class ChessFrame extends JFrame{
+
   private Board board;
 
 

@@ -3,6 +3,7 @@ package se.liu.ida.dinadress.tddd78.chess;
 import java.awt.*;
 
 
+
 /**
  * The class that is responsible for keeping check on the board and tell other classes when it is updated
  */
@@ -12,7 +13,7 @@ public class Board {
 
     private int boardHeight;
     private int boardWidth;
-    private String player;
+
 
     private  ChessPiece[][] gameField;
 
@@ -81,8 +82,13 @@ public class Board {
     }
 
     public void movePieceOnField(ChessPiece chessPiece, int xNew, int yNew) {
-        //System.out.println(getPieceFromCoordinate(yNew, xNew));
+        //System.out.println(chessPiece.getColor().getRGB());
+        //System.out.println(chessPiece.getPiece());
+        //System.out.println(getPieceOnCoordinate(yNew, xNew));
         //if (isValidMove(chessPiece, xNew, yNew)); {
+    //    if (getPieceOnCoordinate(yNew, xNew).getPiece() != Piece.EMPTY) {
+  //          captureEmemyPiece(yNew, xNew);
+//        }
             gameField[yNew][xNew] = chessPiece;
         //}
     }
@@ -90,8 +96,12 @@ public class Board {
         gameField[selectedOldY][selectedOldX] = new Empty(this, Piece.EMPTY, Color.BLUE);
 
     }
+    public void captureEmemyPiece(int yNew, int xNew) {
+        gameField[yNew][xNew] = new Empty(this, Piece.EMPTY, Color.BLUE);
 
-    public ChessPiece getPieceFromCoordinate(int row, int column) {
+    }
+
+    public ChessPiece getPieceOnCoordinate(int row, int column) {
         ChessPiece thisIsOnCoordinate = gameField[row][column];
         return thisIsOnCoordinate;
     }
