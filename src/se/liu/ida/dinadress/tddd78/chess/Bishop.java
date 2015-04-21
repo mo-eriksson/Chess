@@ -15,7 +15,9 @@ public class Bishop extends AbstractChessPiece {
 
     @Override
     public boolean validMove(ChessPiece chessPiece,int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate) {
+        boolean isMovable = false;
+        isMovable = validMoveForBishop(newYCoordinate, oldYCoordinate, newXCoordinate, oldXCoordinate);
+        return isMovable;
 
-        return false;
     }
 }

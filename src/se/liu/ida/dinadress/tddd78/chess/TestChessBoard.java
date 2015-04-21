@@ -9,7 +9,9 @@ public class TestChessBoard {
 
 
     public static void main(String[] args) {
-	Board testBoard = new Board(BOARD_HIEGHT, BOARD_WIDTH);
-    JFrame testFrame = new ChessFrame("YOLO", testBoard);
+
+	Board chessBoard = new Board(BOARD_HIEGHT, BOARD_WIDTH);
+    JFrame chessFrame = new ChessFrame("Chess", chessBoard);
     }
 }
+

@@ -15,6 +15,9 @@ public class Queen extends AbstractChessPiece {
 
     @Override
     public boolean validMove(ChessPiece chessPiece,int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate) {
-        return false;
+        boolean isMovable = false;
+        isMovable = validMoveForBishop(newYCoordinate, oldYCoordinate, newXCoordinate, oldXCoordinate) ||
+                validMoveForRook(newYCoordinate, oldYCoordinate, newXCoordinate, oldXCoordinate);
+        return isMovable;
     }
 }

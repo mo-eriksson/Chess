@@ -16,5 +16,9 @@ public interface ChessPiece {
 
     public Color getColor();
 
+    public boolean isPromoted();
+    
+    public ChessPiece promotedTo();
+
 
 }

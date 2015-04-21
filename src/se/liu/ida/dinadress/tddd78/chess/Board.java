@@ -3,7 +3,6 @@ package se.liu.ida.dinadress.tddd78.chess;
 import java.awt.*;
 
 
-
 /**
  * The class that is responsible for keeping check on the board and tell other classes when it is updated
  */
@@ -14,8 +13,7 @@ public class Board {
     private int boardHeight;
     private int boardWidth;
 
-
-    private  ChessPiece[][] gameField;
+    private ChessPiece[][] gameField;
 
     public Board(int boardHeight, int boardWidth) {
         this.boardWidth = boardWidth;
@@ -25,23 +23,20 @@ public class Board {
         setStartPosition();
 
     }
+
     public void setStartPosition() {
         for (int row = 0; row < boardHeight; row++) {
             for (int column = 0; column < boardWidth; column++) {
 
                 if (row == 0) {
                     setThisRow(row, column, Color.BLACK);
-                }
-                else if (row == 7) {
+                } else if (row == 7) {
                     setThisRow(row, column, Color.WHITE);
-                                }
-                else if (row == 1) {
+                } else if (row == 1) {
                     gameField[row][column] = new Pawn(this, Piece.PAWN, Color.BLACK);
-                }
-                else if (row == 6) {
+                } else if (row == 6) {
                     gameField[row][column] = new Pawn(this, Piece.PAWN, Color.WHITE);
-                }
-                else {
+                } else {
                     gameField[row][column] = new Empty(this, Piece.EMPTY, Color.BLUE);
                 }
 
@@ -82,20 +77,14 @@ public class Board {
     }
 
     public void movePieceOnField(ChessPiece chessPiece, int xNew, int yNew) {
-        //System.out.println(chessPiece.getColor().getRGB());
-        //System.out.println(chessPiece.getPiece());
-        //System.out.println(getPieceOnCoordinate(yNew, xNew));
-        //if (isValidMove(chessPiece, xNew, yNew)); {
-    //    if (getPieceOnCoordinate(yNew, xNew).getPiece() != Piece.EMPTY) {
-  //          captureEmemyPiece(yNew, xNew);
-//        }
-            gameField[yNew][xNew] = chessPiece;
-        //}
+        gameField[yNew][xNew] = chessPiece;
     }
+
     public void removeOldPiece(int selectedOldX, int selectedOldY) {
         gameField[selectedOldY][selectedOldX] = new Empty(this, Piece.EMPTY, Color.BLUE);
 
     }
+
     public void captureEmemyPiece(int yNew, int xNew) {
         gameField[yNew][xNew] = new Empty(this, Piece.EMPTY, Color.BLUE);
 
@@ -119,19 +108,57 @@ public class Board {
         return boardWidth;
     }
 
-    public ChessPiece [][] getGameField() {
+    public ChessPiece[][] getGameField() {
         return gameField;
     }
 
-    public void setBoardHeight(int boardHeight) {
-        this.boardHeight = boardHeight;
+    private int findKingX(Color color) {
+        int kingXPosition = -1;
+        for (int row = 0; row < boardHeight; row++) {
+            for (int column = 0; column < boardWidth; column++) {
+                if (gameField[row][column].getPiece() == Piece.KING && gameField[row][column].getColor().equals(color)) {
+                    kingXPosition = column;
+                }
+            }
+        }
+        if (kingXPosition == -1) {
+            throw new IllegalArgumentException("Did not found any king on the field");
+        }
+        return kingXPosition;
     }
 
-    public void setBoardWidth(int boardWidth) {
-        this.boardWidth = boardWidth;
+    private int findKingY(Color color) {
+        int kingYPosition = -1;
+        for (int row = 0; row < boardHeight; row++) {
+            for (int column = 0; column < boardWidth; column++) {
+                if (gameField[row][column].getPiece() == Piece.KING && gameField[row][column].getColor().equals(color)) {
+                    kingYPosition = row;
+                }
+            }
+        }
+        if (kingYPosition == -1) {
+            throw new IllegalArgumentException("Did not found any king on the field");
+        }
+        return kingYPosition;
     }
 
-    public void setGameField(ChessPiece [][] gameField) {
-        this.gameField = gameField;
+    public boolean isItCheck(Color color) {
+        Color enemyColor = Color.BLACK;
+        if (color.equals(Color.BLACK)) {
+            enemyColor = Color.WHITE;
+        }
+
+        boolean check = false;
+        for (int row = 0; row < boardHeight; row++) {
+            for (int column = 0; column < boardWidth; column++) {
+                if (gameField[row][column].getPiece() != Piece.KING) {
+                    if (gameField[row][column].validMove(gameField[row][column], findKingX(enemyColor), findKingY(enemyColor), column, row)) {
+                        check = true;
+                        System.out.println("test");
+                    }
+                }
+            }
+        }
+        return check;
     }
 }
