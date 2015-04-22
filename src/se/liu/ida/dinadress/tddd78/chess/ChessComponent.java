@@ -34,6 +34,10 @@ public class ChessComponent extends JComponent implements Composite {
 
     private boolean clicked = false;
 
+    private Color nextTurn = Color.WHITE;
+
+    public static String colorString = "White";
+
     public ChessComponent(Board board) {
 
         this.board = board;
@@ -48,14 +52,14 @@ public class ChessComponent extends JComponent implements Composite {
                 if ((xCoord <= 7 && xCoord >= 0) && (yCoord >= 0 && yCoord <= 7)) {
 
                     if (isClicked()) {
-                        System.out.println(board.isItCheck(selectedPiece.getColor()));
-                        if (! selectedPiece.validMove(selectedPiece, xCoord, yCoord, selectedOldX, selectedOldY) ||
+                        if (!selectedPiece.validMove(selectedPiece, xCoord, yCoord, selectedOldX, selectedOldY) ||
                                 board.isItCheck(selectedPiece.getColor())) {
 
                             // fillter out that you set yourself in chess (not ok)
                             // add check
                             invalidMoveResetAll();
                         } else {
+
 
                             setSelectedNewX(xCoord);
                             setSelectedNewY(yCoord);
@@ -77,16 +81,32 @@ public class ChessComponent extends JComponent implements Composite {
 
                         }
                     } else {
-                        setClicked(true);
-                        setSelectedOldX(xCoord);
-                        setSelectedOldY(yCoord);
-                        System.out.println(xCoord + " x and y " + yCoord);
-                        setSelectedPiece(board.getPieceOnCoordinate(selectedOldY, selectedOldX));
+
+                        if (board.getPieceOnCoordinate(yCoord, xCoord).getColor().equals(Color.BLACK) &&
+                                nextTurn.equals(Color.BLACK)) {
+                            nextTurn = Color.WHITE;
+                            setColorString("White");
+                            setClicked(true);
+                            setSelectedOldX(xCoord);
+                            setSelectedOldY(yCoord);
+                            System.out.println(xCoord + " x and y " + yCoord);
+                            setSelectedPiece(board.getPieceOnCoordinate(selectedOldY, selectedOldX));
+                        } else if (board.getPieceOnCoordinate(yCoord, xCoord).getColor().equals(Color.WHITE) &&
+                                nextTurn.equals(Color.WHITE)) {
+                            nextTurn = Color.BLACK;
+                            setColorString("Black");
+                            setClicked(true);
+                            setSelectedOldX(xCoord);
+                            setSelectedOldY(yCoord);
+                            System.out.println(xCoord + " x and y " + yCoord);
+                            setSelectedPiece(board.getPieceOnCoordinate(selectedOldY, selectedOldX));
+                        }
                     }
                 }
             }
         });
     }
+
     private void displayCheck() {
         Color playerThatMovedLast = Color.WHITE;
         Color enemyColor = Color.BLACK;
@@ -113,8 +133,6 @@ public class ChessComponent extends JComponent implements Composite {
             );
         }
     }
-
-
 
 
     @Override
@@ -259,6 +277,13 @@ public class ChessComponent extends JComponent implements Composite {
 
     public void invalidMoveResetAll() {
         clicked = false;
+        if(nextTurn.equals(Color.WHITE)) {
+            nextTurn = Color.BLACK;
+        }
+        else {
+            nextTurn = Color.WHITE;
+        }
+
     }
     //private boolean checkIfOutOfBouns() {
     //boolean possibleOutOfBounds = true;
@@ -294,5 +319,11 @@ public class ChessComponent extends JComponent implements Composite {
         this.selectedPiece = selectedPiece;
     }
 
+    public static String getColorString() {
+        return colorString;
+    }
 
+    public static void setColorString(String colorString) {
+        ChessComponent.colorString = colorString;
+    }
 }

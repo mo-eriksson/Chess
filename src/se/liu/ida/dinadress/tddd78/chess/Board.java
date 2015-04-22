@@ -12,6 +12,7 @@ public class Board {
 
     private int boardHeight;
     private int boardWidth;
+    private Color nextTurn;
 
     private ChessPiece[][] gameField;
 
@@ -154,7 +155,7 @@ public class Board {
                 if (gameField[row][column].getPiece() != Piece.KING) {
                     if (gameField[row][column].validMove(gameField[row][column], findKingX(enemyColor), findKingY(enemyColor), column, row)) {
                         check = true;
-                        System.out.println("test");
+                        //System.out.println("test");
                     }
                 }
             }

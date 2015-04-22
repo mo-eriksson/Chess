@@ -52,19 +52,24 @@ public abstract class AbstractChessPiece implements ChessPiece {
 
         if (!(newYCoordinate == oldYCoordinate && newXCoordinate == oldXCoordinate)) {
 
-            int startX = Math.min(newXCoordinate, oldXCoordinate);
             int startY = Math.min(newYCoordinate, oldYCoordinate);
-            int stopX = Math.max(newXCoordinate, oldXCoordinate);
             int stopY = Math.max(newYCoordinate, oldYCoordinate);
+
+            int startX = Math.min(newXCoordinate, oldXCoordinate);
+            int stopX = Math.max(newXCoordinate, oldXCoordinate);
 
             if (Math.abs(newYCoordinate - oldYCoordinate) == Math.abs(newXCoordinate - oldXCoordinate)) {
 
                 startX++;
                 startY++;
 
-                while (!(startX == stopX && startY == stopY)) {
-                    System.out.println(startX + " X and Y " + startY);
+                while (! (startX == stopX && startY == stopY)) {
+
+                    System.out.println(startX + " X start and  start Y " + startY + " är dom tomma " +
+                            (board.getGameField()[startY][startX].getPiece() != Piece.EMPTY));
+
                     if (board.getGameField()[startY][startX].getPiece() != Piece.EMPTY) {
+                        System.out.println(startX +" start X och start Y "+ startY);
                         pathIsClear = false;
                     }
                     startX++;

@@ -81,11 +81,11 @@ public class Pawn extends AbstractChessPiece {
         }
 
         else if (board.getGameField()[newYCoordinate][newXCoordinate].getPiece() != Piece.EMPTY) {
-            System.out.println(moveIsValid + "a");
+            //System.out.println(moveIsValid + "a");
             if (newYCoordinate == oldYCoordinate + movePawnOneStep && (newXCoordinate == oldXCoordinate + 1 ||
                     newXCoordinate == oldXCoordinate - 1) &&
                     ! board.getGameField()[newYCoordinate][newXCoordinate].getColor().equals(this.color)) {
-                System.out.println(moveIsValid);
+                //System.out.println(moveIsValid);
                 moveIsValid = true;
             }
         }

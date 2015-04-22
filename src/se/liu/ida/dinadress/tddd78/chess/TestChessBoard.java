@@ -8,10 +8,13 @@ public class TestChessBoard {
     private static final int BOARD_WIDTH = 8;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { newGame(); }
 
-	Board chessBoard = new Board(BOARD_HIEGHT, BOARD_WIDTH);
-    JFrame chessFrame = new ChessFrame("Chess", chessBoard);
+        public static void newGame() {
+
+            Board chessBoard = new Board(BOARD_HIEGHT, BOARD_WIDTH);
+            JFrame chessFrame = new ChessFrame("Chess", chessBoard);
+        }
     }
-}
+
 
