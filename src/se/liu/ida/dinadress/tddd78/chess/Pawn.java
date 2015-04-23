@@ -3,6 +3,14 @@ package se.liu.ida.dinadress.tddd78.chess;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The Pawn class contains the different valid moves for the Pawn and also inharites the valid move method
+ * from the AbstractChessPiece class. The pawn can move one step forward except for the first time it
+ * moves. At this move the player can choose if the Pawn will move one step or two steps forward, the
+ * pawn can only take out other pieces in a diagonal direction forward to bouth the left or the right
+ * direction. And if the Pawn reaches the other side of the gamefield it will be promoted to the piece
+ * of choice. (Queen,Knight,Rook,Bishop)
+ */
 public class Pawn extends AbstractChessPiece {
     private final static int ONE_STEP_FORWARD_WHITE = -1;
     private final static int TWO_STEP_FORWARD_WHITE = -2;
@@ -27,11 +35,6 @@ public class Pawn extends AbstractChessPiece {
         else {
             this.initialY = 6;
         }
-    }
-
-    @Override
-    public boolean isMovable() {
-        return false;
     }
 
     @Override
@@ -91,13 +94,13 @@ public class Pawn extends AbstractChessPiece {
         }
         if (moveIsValid && ((newYCoordinate == 0 && this.color.getRGB() == INT_WHITE_COLOR) ||
                 (newYCoordinate == 7 && this.color.getRGB() == INT_BLACK_COLOR))) {
-            promotionOfPawn(newYCoordinate, newXCoordinate, this.color);
+            promotionOfPawn(this.color);
             this.promoted = true;
         }
         return moveIsValid;
     }
 
-    private void promotionOfPawn(int newYCoordinate, int newXCoordinate, Color color) {
+    private void promotionOfPawn(Color color) {
         String[] options = {
                 "Queen",
                 "Bishop",

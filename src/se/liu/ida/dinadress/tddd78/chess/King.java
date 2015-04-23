@@ -1,19 +1,15 @@
 package se.liu.ida.dinadress.tddd78.chess;
-
-/**
- * Kings own class were if any special moves or catsting will that place
- */
 import java.awt.*;
 
+/**
+ * The King class contains the different valid moves on the gamefield. It inharitets the
+ * valid move method from the AbstractChessPiece class.
+ * The king can move one step in all the directions around it self.
+ */
 public class King extends AbstractChessPiece {
 
     public King(Board board, Piece piece, Color color) {
         super(board, piece, color);
-    }
-
-    @Override
-    public boolean isMovable() {
-        return false;
     }
 
     @Override

@@ -2,6 +2,10 @@ package se.liu.ida.dinadress.tddd78.chess;
 
 import java.awt.*;
 
+/**
+ * This class specifies the valid moves for the Bishop Piece and houses the constructor for the
+ * object Bishop. The Bishop can move diagonaly through out the whole gamefield in all directions.
+ */
 public class Bishop extends AbstractChessPiece {
 
     public Bishop(Board board, Piece piece, Color color) {
@@ -9,13 +13,8 @@ public class Bishop extends AbstractChessPiece {
     }
 
     @Override
-    public boolean isMovable() {
-        return false;
-    }
-
-    @Override
     public boolean validMove(ChessPiece chessPiece,int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate) {
-        boolean isMovable = false;
+        boolean isMovable;
         isMovable = validMoveForBishop(newYCoordinate, oldYCoordinate, newXCoordinate, oldXCoordinate);
         return isMovable;
 

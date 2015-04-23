@@ -1,9 +1,9 @@
 package se.liu.ida.dinadress.tddd78.chess;
 
 /**
- * Different type of pieces, what a coordinate store for the moment
+ * This is is the different types of pieces precented in the game.
  */
 
 public enum Piece {
-    KING, QUEEN, ROOK, BISHOP, KNIGHT, PAWN, EMPTY, BOARDER
+    KING, QUEEN, ROOK, BISHOP, KNIGHT, PAWN, EMPTY
 }

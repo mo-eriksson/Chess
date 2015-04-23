@@ -12,7 +12,7 @@ public class Board {
 
     private int boardHeight;
     private int boardWidth;
-    private Color nextTurn;
+
 
     private ChessPiece[][] gameField;
 
@@ -75,9 +75,11 @@ public class Board {
                 break;
 
         }
+
     }
 
     public void movePieceOnField(ChessPiece chessPiece, int xNew, int yNew) {
+
         gameField[yNew][xNew] = chessPiece;
     }
 
@@ -86,19 +88,9 @@ public class Board {
 
     }
 
-    public void captureEmemyPiece(int yNew, int xNew) {
-        gameField[yNew][xNew] = new Empty(this, Piece.EMPTY, Color.BLUE);
-
-    }
-
     public ChessPiece getPieceOnCoordinate(int row, int column) {
         ChessPiece thisIsOnCoordinate = gameField[row][column];
         return thisIsOnCoordinate;
-    }
-
-    private boolean isValidMove(ChessPiece chessPiece, int xNew, int yNew) {
-        boolean validMove = false;
-        return validMove;
     }
 
     public int getBoardHeight() {
@@ -144,6 +136,7 @@ public class Board {
     }
 
     public boolean isItCheck(Color color) {
+
         Color enemyColor = Color.BLACK;
         if (color.equals(Color.BLACK)) {
             enemyColor = Color.WHITE;
@@ -160,6 +153,25 @@ public class Board {
                 }
             }
         }
+        return check;
+    }
+
+    public boolean isItSelfCheck(Color selfColor, ChessPiece chessPiece, int oldX, int newX, int oldY, int newY ) {
+        ChessPiece temp = getPieceOnCoordinate(newY, newX);
+        movePieceOnField(chessPiece, newX, newY);
+        removeOldPiece(oldX, oldY);
+        boolean check = false;
+
+        for (int row = 0; row < boardHeight; row++) {
+            for (int column = 0; column < boardWidth; column++) {
+
+                if (gameField[row][column].validMove(gameField[row][column], findKingX(selfColor), findKingY(selfColor), column, row)) {
+                    check = true;
+                }
+            }
+        }
+        movePieceOnField(chessPiece, oldX, oldY);
+        movePieceOnField(temp, newX, newY);
         return check;
     }
 }
