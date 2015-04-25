@@ -15,11 +15,12 @@ import javax.swing.event.MouseInputAdapter;
 
 
 /**
- * Paint class
+ * This makes the board graphic in forms of a backgrund and a diffrent ChessPieces
  */
 public class ChessComponent extends JComponent implements Composite {
 
     private static final int SQUARE_SIDE = 90;
+
     private Board board;
 
     private JFrame checkPopUp = null;
@@ -34,9 +35,11 @@ public class ChessComponent extends JComponent implements Composite {
 
     private boolean clicked = false;
 
-
-
     private Color nextTurn = Color.WHITE;
+
+    /**
+     * When getRGB is used on awt color the int used to represent white and black
+     */
 
     private final static int INT_WHITE_COLOR_VALUE = -1;
     private final static int INT_BLACK_COLOR_VALUE = -16777216;
@@ -53,6 +56,10 @@ public class ChessComponent extends JComponent implements Composite {
                 int yCoord = e.getY() / SQUARE_SIDE;
                 boolean checkOnFriendly = false;
 
+                if (board.isCheckmate(nextTurn)) {
+                    System.out.println("GameOver");
+                }
+
                 if ((xCoord <= 7 && xCoord >= 0) && (yCoord >= 0 && yCoord <= 7)) {
 
                     if (isClicked()) {
@@ -64,25 +71,16 @@ public class ChessComponent extends JComponent implements Composite {
                             checkOnFriendly = board.isItSelfCheck(selectedPiece.getColor(), selectedPiece,
                                     selectedOldX, xCoord, selectedOldY, yCoord);
 
-
-
-                            // fillter out that you set yourself in chess (not ok)
-                            // add check
-
                             invalidMoveResetAll();
                         } else {
 
-
                             setSelectedNewX(xCoord);
                             setSelectedNewY(yCoord);
-                            // check test placment
 
                             if (selectedPiece.isPromoted()) {
                                 selectedPiece = selectedPiece.promotedTo();
                             }
 
-
-                            //System.out.println(board.getPieceOnCoordinate(selectedOldY, selectedOldX).getColor()+"is clicked");
                             board.movePieceOnField(selectedPiece, selectedNewX, selectedNewY);
                             board.removeOldPiece(selectedOldX, selectedOldY);
                             setClicked(false);
@@ -96,25 +94,34 @@ public class ChessComponent extends JComponent implements Composite {
                         if (board.getPieceOnCoordinate(yCoord, xCoord).getColor().equals(Color.BLACK) &&
                                 nextTurn.equals(Color.BLACK)) {
                             nextTurn = Color.WHITE;
+
                             setClicked(true);
                             setSelectedOldX(xCoord);
                             setSelectedOldY(yCoord);
-                            System.out.println(xCoord + " x and y " + yCoord);
                             setSelectedPiece(board.getPieceOnCoordinate(selectedOldY, selectedOldX));
+
+                            System.out.println(xCoord + " x and y " + yCoord);
+
                         } else if (board.getPieceOnCoordinate(yCoord, xCoord).getColor().equals(Color.WHITE) &&
                                 nextTurn.equals(Color.WHITE)) {
                             nextTurn = Color.BLACK;
+
                             setClicked(true);
                             setSelectedOldX(xCoord);
                             setSelectedOldY(yCoord);
-                            System.out.println(xCoord + " x and y " + yCoord);
                             setSelectedPiece(board.getPieceOnCoordinate(selectedOldY, selectedOldX));
+
+                            System.out.println(xCoord + " x and y " + yCoord);
                         }
                     }
                 }
             }
         });
     }
+
+    /**
+     * Uses JOptionPane to pop up show when check is flagged
+     */
 
     private void displayCheck(boolean checkOnFriendly) {
         Color playerThatMovedLast = Color.WHITE;
@@ -143,7 +150,6 @@ public class ChessComponent extends JComponent implements Composite {
         }
     }
 
-
     @Override
     protected void paintComponent(Graphics g) {
 
@@ -159,7 +165,6 @@ public class ChessComponent extends JComponent implements Composite {
             e.printStackTrace();
         }
 
-
         for (int row = 0; row < board.getBoardHeight(); row++) {
             for (int col = 0; col < board.getBoardWidth(); col++) {
                 if (board.getPieceOnCoordinate(row, col).getPiece() != Piece.EMPTY) {
@@ -174,12 +179,9 @@ public class ChessComponent extends JComponent implements Composite {
 
     }
 
-    private void drawBlock(int row, int col, Graphics2D g2d) {
-        /**
-         * Background
-         * Black frame around a square
-         * Filled with mapped color
-         */
+
+    private void drawBackgrundBlock(int row, int col, Graphics2D g2d) {
+
         int startY = row * SQUARE_SIDE;
         int startX = col * SQUARE_SIDE;
 
@@ -191,17 +193,19 @@ public class ChessComponent extends JComponent implements Composite {
     }
 
     private void setBackground(Graphics2D g2d) {
+
         for (int row = 0; row < board.getBoardHeight(); row++) {
             for (int column = 0; column < board.getBoardWidth(); column++) {
+
                 if (row % 2 == 0) {
 
                     if (column % 2 == 1) {
-                        drawBlock(row, column, g2d);
+                        drawBackgrundBlock(row, column, g2d);
                     }
                 } else {
 
                     if (column % 2 != 1) {
-                        drawBlock(row, column, g2d);
+                        drawBackgrundBlock(row, column, g2d);
 
                     }
                 }
@@ -209,29 +213,28 @@ public class ChessComponent extends JComponent implements Composite {
         }
     }
 
+    /**
+     *
+     */
     private void drawPieceImage(int x, int y, ChessPiece chessPiece, JComponent jComponent, Graphics2D g2d) {
-
-        //System.out.println(String.valueOf(chessPiece.getColor().getRGB()));
 
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
         iconMaping(chessPiece).paintIcon(jComponent, g2d, x, y);
     }
 
+    /**
+     * Maps a chesspiece to a icon
+     */
     private Icon iconMaping(ChessPiece chessPiece) {
 
         Map<Piece, Icon> iconMaping = new EnumMap<>(Piece.class);
+
         iconMaping.put(Piece.BISHOP, getPieceImage("bishop", chessPiece.getColor().getRGB()));
-
         iconMaping.put(Piece.KING, getPieceImage("king", chessPiece.getColor().getRGB()));
-
         iconMaping.put(Piece.PAWN, getPieceImage("pawn", chessPiece.getColor().getRGB()));
-
         iconMaping.put(Piece.QUEEN, getPieceImage("queen", chessPiece.getColor().getRGB()));
-
         iconMaping.put(Piece.KNIGHT, getPieceImage("hourse", chessPiece.getColor().getRGB()));
-
         iconMaping.put(Piece.ROOK, getPieceImage("tower", chessPiece.getColor().getRGB()));
-
 
         return iconMaping.get(chessPiece.getPiece());
     }
@@ -242,6 +245,9 @@ public class ChessComponent extends JComponent implements Composite {
       //  return super.getPreferredSize();
     //}
 
+    /**
+     * Read in the pic and cast them into Icon
+     */
     private Icon getPieceImage(String pieceName, int colorIntValue) {
         // player color maight bee null
 
@@ -276,14 +282,16 @@ public class ChessComponent extends JComponent implements Composite {
         return clicked;
     }
 
-    public void invalidMoveResetAll() {
+    /**
+     * If user fails to do a correct move this will reset all and give the user a new try
+     */
+    private void invalidMoveResetAll() {
         clicked = false;
         if (nextTurn.equals(Color.WHITE)) {
             nextTurn = Color.BLACK;
         } else {
             nextTurn = Color.WHITE;
         }
-
     }
 
     public void setSelectedNewX(int selectedNewX) {

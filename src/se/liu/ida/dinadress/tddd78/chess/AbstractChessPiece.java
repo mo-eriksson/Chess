@@ -3,9 +3,11 @@ package se.liu.ida.dinadress.tddd78.chess;
 import java.awt.*;
 
 /**
- *
+ * The abstract class houses the common method for more then one piece object and mostly revoles around the
+ * diffrent implention of validMove.
  */
 public abstract class AbstractChessPiece implements ChessPiece {
+
     protected Board board;
     protected Piece piece;
     protected Color color;
@@ -26,17 +28,25 @@ public abstract class AbstractChessPiece implements ChessPiece {
         return color;
     }
 
+    /**
+     * This implention of validMove is only used when the user tries to move the object "Empty", which is not ok
+     */
     @Override
     public boolean validMove(ChessPiece chessPiece, int newXCoordinate, int newYCoordinate,
                              int oldXCoordinate, int oldYCoordinate) {
         return false;
     }
 
+    /**
+     * Check that the move is not to the same place where the piece stod.
+     * Loops over the bishops path to new coordinates and check that there is nothing in the way.
+     *
+     */
     public boolean validMoveForBishop(int newYCoordinate, int oldYCoordinate, int newXCoordinate, int oldXCoordinate) {
         boolean isMovable = false;
         boolean pathIsClear = true;
 
-        if (!(newYCoordinate == oldYCoordinate && newXCoordinate == oldXCoordinate)) {
+        if (! (newYCoordinate == oldYCoordinate && newXCoordinate == oldXCoordinate)) {
 
             if ((oldXCoordinate < newXCoordinate && oldYCoordinate > newYCoordinate) ||
                     (oldXCoordinate > newXCoordinate && oldYCoordinate < newYCoordinate)) {
@@ -79,7 +89,7 @@ public abstract class AbstractChessPiece implements ChessPiece {
                 }
             }
         }
-        System.out.println(isMovable);
+        //System.out.println(isMovable);
         return isMovable;
     }
 
@@ -160,7 +170,7 @@ public abstract class AbstractChessPiece implements ChessPiece {
         boolean isMovable = false;
         boolean pathIsClear = true;
 
-        if (!(newYCoordinate == oldYCoordinate && newXCoordinate == oldXCoordinate)) {
+        if (! (newYCoordinate == oldYCoordinate && newXCoordinate == oldXCoordinate)) {
 
             int startY = Math.max(newYCoordinate, oldYCoordinate);
             int stopY = Math.min(newYCoordinate, oldYCoordinate);
@@ -192,7 +202,7 @@ public abstract class AbstractChessPiece implements ChessPiece {
                 isMovable = pathIsClear;
             }
         }
-        System.out.println(isMovable);
+        //System.out.println(isMovable);
         return isMovable;
     }
 

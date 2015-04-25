@@ -4,15 +4,14 @@ import java.awt.*;
 
 
 /**
- * The class that is responsible for keeping check on the board and tell other classes when it is updated
+ * The class that is responsible for keeping check on the board (gamefield),
+ * and all the changes of the board will be done here.
  */
 
 public class Board {
 
-
     private int boardHeight;
     private int boardWidth;
-
 
     private ChessPiece[][] gameField;
 
@@ -22,8 +21,11 @@ public class Board {
         this.gameField = new ChessPiece[boardHeight][boardWidth];
 
         setStartPosition();
-
     }
+
+    /**
+     * Fills the gameField with the right start poss.
+     */
 
     public void setStartPosition() {
         for (int row = 0; row < boardHeight; row++) {
@@ -45,7 +47,9 @@ public class Board {
         }
     }
 
-
+    /**
+     * Start position for the first and last row (0 and 7)
+     */
     private void setThisRow(int row, int column, Color color) {
         switch (column) {
 
@@ -73,9 +77,7 @@ public class Board {
             case 7:
                 gameField[row][column] = new Rook(this, Piece.ROOK, color);
                 break;
-
         }
-
     }
 
     public void movePieceOnField(ChessPiece chessPiece, int xNew, int yNew) {
@@ -93,17 +95,32 @@ public class Board {
         return thisIsOnCoordinate;
     }
 
-    public int getBoardHeight() {
-        return boardHeight;
+    public boolean isCheckmate(Color selfColor) {
+        boolean checkmate = true;
+
+        for (int row = 0; row < boardHeight; row++) {
+            for (int column = 0; column < boardWidth; column++) {
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        if (gameField[row][column].getColor().equals(selfColor)) {
+                            if (gameField[row][column].validMove(gameField[row][column], i, j, column, row) &&
+                                ! isItCheck(selfColor)) {
+                                checkmate = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return checkmate;
     }
 
-    public int getBoardWidth() {
-        return boardWidth;
-    }
 
-    public ChessPiece[][] getGameField() {
-        return gameField;
-    }
+    /**
+     * Finds the king in Y (row) of the color on the game field
+     *
+     * If there is not a king of the color on the field something is not right
+     */
 
     private int findKingX(Color color) {
         int kingXPosition = -1;
@@ -120,6 +137,12 @@ public class Board {
         return kingXPosition;
     }
 
+    /**
+     * Finds the king in X (coloumn) of the color on the game field
+     *
+     * If there is not a king of the color on the field something is not right
+     */
+
     private int findKingY(Color color) {
         int kingYPosition = -1;
         for (int row = 0; row < boardHeight; row++) {
@@ -135,6 +158,10 @@ public class Board {
         return kingYPosition;
     }
 
+    /**
+     * Loopes over the game field and tries all possible move to enemy King, if it's a valid move to enemy king check
+     */
+
     public boolean isItCheck(Color color) {
 
         Color enemyColor = Color.BLACK;
@@ -148,7 +175,6 @@ public class Board {
                 if (gameField[row][column].getPiece() != Piece.KING) {
                     if (gameField[row][column].validMove(gameField[row][column], findKingX(enemyColor), findKingY(enemyColor), column, row)) {
                         check = true;
-                        //System.out.println("test");
                     }
                 }
             }
@@ -156,6 +182,10 @@ public class Board {
         return check;
     }
 
+    /**
+     * Check if the move that the user is about to make puts him in friendly check, tries to check on the gamfield
+     * that has been updated with the move and then updates the gamefield to the pre-move state.
+     */
     public boolean isItSelfCheck(Color selfColor, ChessPiece chessPiece, int oldX, int newX, int oldY, int newY ) {
         ChessPiece temp = getPieceOnCoordinate(newY, newX);
         movePieceOnField(chessPiece, newX, newY);
@@ -173,5 +203,17 @@ public class Board {
         movePieceOnField(chessPiece, oldX, oldY);
         movePieceOnField(temp, newX, newY);
         return check;
+    }
+
+    public int getBoardHeight() {
+        return boardHeight;
+    }
+
+    public int getBoardWidth() {
+        return boardWidth;
+    }
+
+    public ChessPiece[][] getGameField() {
+        return gameField;
     }
 }
