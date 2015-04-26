@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public interface ChessPiece {
 
-    boolean validMove(ChessPiece chessPiece, int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate);
+    boolean validMove(int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate);
 
     public Piece getPiece();
 

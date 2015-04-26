@@ -15,7 +15,7 @@ public class King extends AbstractChessPiece
     }
 
     @Override
-    public boolean validMove(ChessPiece chessPiece, int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate) {
+    public boolean validMove(int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate) {
         boolean moveIsValid = false;
         if (Math.abs(newXCoordinate - oldXCoordinate) == 1 && Math.abs(newYCoordinate - oldYCoordinate) == 1) {
 

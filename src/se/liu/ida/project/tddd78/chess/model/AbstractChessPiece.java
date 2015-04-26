@@ -6,6 +6,7 @@ import java.awt.*;
  * The abstract class houses the common method for more then one piece object and mostly revoles around the
  * diffrent implention of validMove.
  */
+@SuppressWarnings("NoopMethodInAbstractClass")
 public abstract class AbstractChessPiece implements ChessPiece
 {
 
@@ -30,22 +31,12 @@ public abstract class AbstractChessPiece implements ChessPiece
     }
 
     /**
-     * This implention of validMove is only used when the user tries to move the object "Empty", which is not ok
-     */
-    @Override
-    public boolean validMove(ChessPiece chessPiece, int newXCoordinate, int newYCoordinate,
-                             int oldXCoordinate, int oldYCoordinate) {
-        return false;
-    }
-
-    /**
      * Check that the move is not to the same place where the piece stod.
      * Loops over the bishops path to new coordinates and check that there is nothing in the way.
      *
      */
     public boolean validMoveForBishop(int newYCoordinate, int oldYCoordinate, int newXCoordinate, int oldXCoordinate) {
         boolean isMovable = false;
-        boolean pathIsClear = true;
 
         if (! (newYCoordinate == oldYCoordinate && newXCoordinate == oldXCoordinate)) {
 
@@ -69,6 +60,7 @@ public abstract class AbstractChessPiece implements ChessPiece
                     startX++;
                     startY++;
 
+                    boolean pathIsClear = true;
                     while (!(startX == stopX && startY == stopY)) {
                         if (board.getPieceOnCoordinate(startY, startX).getPiece() != Piece.EMPTY) {
                             pathIsClear = false;
@@ -88,14 +80,15 @@ public abstract class AbstractChessPiece implements ChessPiece
         return isMovable;
     }
 
-    @Override public void checkForPromotion(int newYCoordinate, int oldYCoordinate) {
+    /**
+     * Only need to be implemnted for Pawn and other can be empty.
+     */
 
-    }
+    @Override public void checkForPromotion(int newYCoordinate, int oldYCoordinate) {}
 
     public boolean validMoveForBishopDown(int newYCoordinate, int oldYCoordinate, int newXCoordinate, int oldXCoordinate) {
 
         boolean isMovable = false;
-        boolean pathIsClear = true;
 
         if (! (newYCoordinate == oldYCoordinate && newXCoordinate == oldXCoordinate)) {
 
@@ -110,6 +103,7 @@ public abstract class AbstractChessPiece implements ChessPiece
                 startX++;
                 startY--;
 
+                boolean pathIsClear = true;
                 while (!(startX == stopX && startY == stopY)) {
                     if (board.getPieceOnCoordinate(startY, startX).getPiece() != Piece.EMPTY) {
                         pathIsClear = false;

@@ -16,7 +16,7 @@ public class Rook extends AbstractChessPiece
     }
 
     @Override
-    public boolean validMove(ChessPiece chessPiece, int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate) {
+    public boolean validMove(int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate) {
 
     boolean validMove;
     validMove = validMoveForRook(newYCoordinate, oldYCoordinate, newXCoordinate, oldXCoordinate);

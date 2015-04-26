@@ -107,7 +107,7 @@ public class Board
 		    for (int destinationColumn = 0; destinationColumn < boardWidth; destinationColumn++) {
 			if (getPieceOnCoordinate(currentRow, currentColumn).getColor().equals(selfColor)) {
 			    if (getPieceOnCoordinate(currentRow, currentColumn)
-					.validMove(getPieceOnCoordinate(currentRow, currentColumn), destinationRow,
+					.validMove(destinationRow,
 						   destinationColumn, currentColumn, currentRow) && !isItCheck(selfColor)) {
 				checkmate = false;
 			    }
@@ -179,7 +179,7 @@ public class Board
 	    for (int column = 0; column < boardWidth; column++) {
 		if (getPieceOnCoordinate(row, column).getPiece() != Piece.KING) {
 		    if (getPieceOnCoordinate(row, column)
-			    .validMove(getPieceOnCoordinate(row, column), findKingX(enemyColor), findKingY(enemyColor), column, row)) {
+			    .validMove(findKingX(enemyColor), findKingY(enemyColor), column, row)) {
 			check = true;
 		    }
 		}
@@ -202,7 +202,7 @@ public class Board
 	    for (int column = 0; column < boardWidth; column++) {
 
 		if (getPieceOnCoordinate(row, column)
-			.validMove(getPieceOnCoordinate(row, column), findKingX(selfColor), findKingY(selfColor), column, row)) {
+			.validMove(findKingX(selfColor), findKingY(selfColor), column, row)) {
 		    check = true;
 		}
 	    }
@@ -220,7 +220,4 @@ public class Board
 	return boardWidth;
     }
 
-    public ChessPiece[][] getGameField() {
-	return gameField;
-    }
 }

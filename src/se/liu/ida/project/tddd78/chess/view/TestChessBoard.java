@@ -2,8 +2,6 @@ package se.liu.ida.project.tddd78.chess.view;
 
 import se.liu.ida.project.tddd78.chess.model.Board;
 
-import javax.swing.*;
-
 /**
  * This is the mainclass witch runs the game, where the board and the frame is created to the appropiate size.
  */
@@ -22,8 +20,12 @@ public final class TestChessBoard {
 
         public static void newGame() {
 
+            /**
+             * Chess if created as a continer for chessComponent, which is add to the chessFrame.
+             */
+
             Board chessBoard = new Board(BOARD_HIEGHT, BOARD_WIDTH);
-            JFrame chessFrame = new ChessFrame("Chess", chessBoard);
+            @SuppressWarnings("UnusedAssignment") ChessFrame chessFrame = new ChessFrame("Chess", chessBoard);
         }
     }
 

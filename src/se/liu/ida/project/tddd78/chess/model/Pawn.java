@@ -10,11 +10,7 @@ import java.awt.*;
  * forward to bouth the left or the right direction. And if the Pawn reaches the other side of the gamefield it will be promoted
  * to the piece of choice. (Queen,Knight,Rook,Bishop)
  */
-public class Pawn extends AbstractChessPiece
-{
-
-    private final static int INT_WHITE_COLOR = -1;
-    private final static int INT_BLACK_COLOR = -16777216;
+public class Pawn extends AbstractChessPiece {
 
     private int initialY;
 
@@ -33,13 +29,12 @@ public class Pawn extends AbstractChessPiece
 	}
     }
 
-    @Override public boolean validMove(final ChessPiece chessPiece, final int newXCoordinate, final int newYCoordinate,
-				       final int oldXCoordinate, final int oldYCoordinate)
+    @Override public boolean validMove(final int newXCoordinate, final int newYCoordinate, final int oldXCoordinate, final int oldYCoordinate)
     {
 	if (color.equals(Color.WHITE)) {
-	    return validWhiteMove(chessPiece, newXCoordinate, newYCoordinate, oldXCoordinate, oldYCoordinate);
+	    return validWhiteMove(newXCoordinate, newYCoordinate, oldXCoordinate, oldYCoordinate);
 	} else {
-	    return validBlackMove(chessPiece, newXCoordinate, newYCoordinate, oldXCoordinate, oldYCoordinate);
+	    return validBlackMove(newXCoordinate, newYCoordinate, oldXCoordinate, oldYCoordinate);
 	}
     }
 
@@ -47,8 +42,7 @@ public class Pawn extends AbstractChessPiece
      * Black starts at 1=y and goes to y=7, if at y = 1 two steps  forward in Y is ok Strikes one forward y and one (+-) x Can
      * only move forward in y if nothing is in the way
      */
-    public boolean validBlackMove(ChessPiece chessPiece, int newXCoordinate, int newYCoordinate, int oldXCoordinate,
-				  int oldYCoordinate)
+    private boolean validBlackMove(int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate)
     {
 	boolean validMove = false;
 
@@ -73,8 +67,7 @@ public class Pawn extends AbstractChessPiece
      * Can only move forward in y if nothing is in the way.
      */
 
-    public boolean validWhiteMove(ChessPiece chessPiece, int newXCoordinate, int newYCoordinate, int oldXCoordinate,
-				  int oldYCoordinate)
+    private boolean validWhiteMove(int newXCoordinate, int newYCoordinate, int oldXCoordinate, int oldYCoordinate)
     {
 	boolean validMove = false;
 
@@ -157,10 +150,12 @@ public class Pawn extends AbstractChessPiece
     }
 
     @Override public boolean isPromoted() {
+	super.isPromoted();
 	return this.promoted;
     }
 
     @Override public ChessPiece promotedTo() {
+	super.promotedTo();
 	return this.promotedTo;
     }
 

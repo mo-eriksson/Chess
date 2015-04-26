@@ -51,9 +51,12 @@ public class ChessComponent extends JComponent implements Composite
 	setPreferredSize(new Dimension(board.getBoardWidth() * SQUARE_SIDE, board.getBoardHeight() * SQUARE_SIDE));
 	addMouseListener(new MouseInputAdapter()
 	{
+
 	    @Override public void mouseClicked(MouseEvent e) {
+
 		int xCoord = e.getX() / SQUARE_SIDE;
 		int yCoord = e.getY() / SQUARE_SIDE;
+		super.mouseClicked(e);
 
 		if (board.isCheckmate(nextTurn)) {
 		    displayCheckmate();
@@ -63,7 +66,7 @@ public class ChessComponent extends JComponent implements Composite
 
 		    if (clicked) {
 
-			if ((!selectedPiece.validMove(selectedPiece, xCoord, yCoord, selectedOldX, selectedOldY)) ||
+			if ((!selectedPiece.validMove(xCoord, yCoord, selectedOldX, selectedOldY)) ||
 			    board.isItSelfCheck(selectedPiece.getColor(), selectedPiece, selectedOldX, xCoord, selectedOldY,
 						yCoord)) {
 
@@ -132,10 +135,9 @@ public class ChessComponent extends JComponent implements Composite
 	}
 	if (board.isItCheck(playerThatMovedLast)) {
 	    String[] options = { "OK" };
-	    int optionsChosen = JOptionPane
-		    .showOptionDialog(checkPopUp, enemyKingColor + " king is in Check!!!", "Chess Pop Up",
-				      JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-				      iconMaping(new King(board, Piece.KING, enemyColor)), options, options[0]);
+	    JOptionPane.showOptionDialog(checkPopUp, enemyKingColor + " king is in Check!!!", "Chess Pop Up",
+					 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+					 iconMaping(new King(board, Piece.KING, enemyColor)), options, options[0]);
 	}
     }
 
@@ -151,10 +153,9 @@ public class ChessComponent extends JComponent implements Composite
 	}
 	if (board.isItCheck(playerThatMovedLast)) {
 	    String[] options = { "OK" };
-	    int optionsChosen = JOptionPane.showOptionDialog(checkmatePopUp, enemyKingColor + " Checkmate  ;) ", "Chess Pop Up",
-							     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-							     iconMaping(new King(board, Piece.KING, enemyColor)), options,
-							     options[0]);
+	    JOptionPane.showOptionDialog(checkmatePopUp, enemyKingColor + " Checkmate  ;) ", "Chess Pop Up",
+					 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+					 iconMaping(new King(board, Piece.KING, enemyColor)), options, options[0]);
 	}
     }
 

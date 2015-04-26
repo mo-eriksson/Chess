@@ -13,4 +13,8 @@ public class Empty extends AbstractChessPiece
         super(board, piece, color);
     }
 
+    @Override public boolean validMove(final int newXCoordinate, final int newYCoordinate, final int oldXCoordinate, final int oldYCoordinate)
+    {
+        return false;
+    }
 }
