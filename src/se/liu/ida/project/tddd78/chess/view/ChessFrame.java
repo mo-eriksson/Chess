@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * This class handles, pop up frames, the menu bar and disposing of old frames
+ * This class handles, the menu bar and disposing of old frames
  */
 
 public class ChessFrame extends JFrame {

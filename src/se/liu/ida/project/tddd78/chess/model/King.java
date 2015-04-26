@@ -3,9 +3,9 @@ package se.liu.ida.project.tddd78.chess.model;
 import java.awt.*;
 
 /**
- * The King class contains the different valid moves on the gamefield. It inharitets the
+ * The King class contains the different valid moves on the game field. It inherits the
  * valid move method from the AbstractChessPiece class.
- * The king can move one step in all the directions around it self.
+ * The king can move one step in all the directions around itself.
  */
 public class King extends AbstractChessPiece
 {

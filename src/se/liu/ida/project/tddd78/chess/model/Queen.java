@@ -3,9 +3,9 @@ package se.liu.ida.project.tddd78.chess.model;
 import java.awt.*;
 
 /**
- * The Queen class contains the valid methods of how the Queen can move. It also inharits valid moves from the
- * AbstractChessPiece. And this class inharits both the valid moves for the Rook and Bishop because the
- * Queen can move through out the whole gamefield like both these pieces.
+ * The Queen class contains the valid methods of how the Queen can move(Bishop or Rook). It also inherits valid moves from the
+ * AbstractChessPiece. And this class inherits both the valid moves for the Rook and Bishop because the
+ * Queen can move through out the whole game field like both these pieces.
  */
 public class Queen extends AbstractChessPiece
 {

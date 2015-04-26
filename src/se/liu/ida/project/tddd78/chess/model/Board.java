@@ -4,7 +4,7 @@ import java.awt.*;
 
 
 /**
- * The class that is responsible for keeping check on the board (gamefield), and all the changes of the board will be done
+ * The class that is responsible for keeping check on the board (game field), and all the changes of the board will be done
  * here.
  */
 
@@ -33,9 +33,9 @@ public class Board
 	    for (int column = 0; column < boardWidth; column++) {
 
 		if (row == 0) {
-		    setAdvancetRow(row, column, Color.BLACK);
+		    setAdvancedRow(row, column, Color.BLACK);
 		} else if (row == 7) {
-		    setAdvancetRow(row, column, Color.WHITE);
+		    setAdvancedRow(row, column, Color.WHITE);
 		} else if (row == 1) {
 		    gameField[row][column] = new Pawn(this, Piece.PAWN, Color.BLACK);
 		} else if (row == 6) {
@@ -43,7 +43,6 @@ public class Board
 		} else {
 		    gameField[row][column] = new Empty(this, Piece.EMPTY, Color.BLUE);
 		}
-
 	    }
 	}
     }
@@ -51,9 +50,8 @@ public class Board
     /**
      * Start position for the first and last row (0 and 7)
      */
-    private void setAdvancetRow(int row, int column, Color color) {
+    private void setAdvancedRow(int row, int column, Color color) {
 	switch (column) {
-
 	    case 0:
 		gameField[row][column] = new Rook(this, Piece.ROOK, color);
 		break;
@@ -87,7 +85,6 @@ public class Board
 
     public void removeOldPiece(int selectedOldX, int selectedOldY) {
 	gameField[selectedOldY][selectedOldX] = new Empty(this, Piece.EMPTY, Color.BLUE);
-
     }
 
     public ChessPiece getPieceOnCoordinate(int row, int column) {
@@ -96,7 +93,8 @@ public class Board
     }
 
     /**
-     * Tries all possible moves for every piece of the users color(the user thats tries to escape checkmate) on the gamefield
+     * Tries all possible moves for every piece of the next players turn color(the user that tries to escape checkmate) on the
+     * game field
      */
     public boolean isCheckmate(Color nextPlayerColor) {
 	boolean checkmate = true;
@@ -137,13 +135,13 @@ public class Board
 	    }
 	}
 	if (kingXPosition == -1) {
-	    throw new IllegalArgumentException("Did not found any king on the field");
+	    throw new MissingKingException("Did not found any king on the field", color);
 	}
 	return kingXPosition;
     }
 
     /**
-     * Finds the king in X (coloumn) of the color on the game field
+     * Finds the king in X (column) of the color on the game field
      * <p>
      * If there is not a king of the color on the field something is not right
      */
@@ -159,13 +157,13 @@ public class Board
 	    }
 	}
 	if (kingYPosition == -1) {
-	    throw new IllegalArgumentException("Did not found any king on the field");
+	    throw new MissingKingException("Did not found any king on the field", color);
 	}
 	return kingYPosition;
     }
 
     /**
-     * Loopes over the game field and tries all possible move to enemy King, if it's a valid move to enemy king check
+     * Loops over the game field and tries all possible move to enemy King, if it's a valid move to enemy king check
      */
 
     public boolean isItCheck(Color color) {
@@ -190,8 +188,8 @@ public class Board
     }
 
     /**
-     * Check if the move that the user is about to make puts him in friendly check, tries to check on the gamfield that has been
-     * updated with the move and then updates the gamefield to the pre-move state.
+     * Check if the move that the user is about to make puts him in friendly check, tries to check on the game field that has
+     * been updated with the move and then updates the game field to the pre-move state.
      */
     public boolean isItSelfCheck(Color selfColor, ChessPiece chessPiece, int oldX, int newX, int oldY, int newY) {
 	ChessPiece temp = getPieceOnCoordinate(newY, newX);
@@ -219,5 +217,4 @@ public class Board
     public int getBoardWidth() {
 	return boardWidth;
     }
-
 }

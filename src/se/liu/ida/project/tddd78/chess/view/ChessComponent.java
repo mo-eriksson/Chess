@@ -20,7 +20,9 @@ import java.util.Map;
 
 
 /**
- * This makes the board graphic in forms of a backgrund and a diffrent ChessPieces
+ * This makes the board graphic in forms of a background and a different ChessPieces.
+ * Also where clicks are registered from the user.
+ * All test for general rules is found here.
  */
 public class ChessComponent extends JComponent implements Composite
 {
@@ -57,10 +59,6 @@ public class ChessComponent extends JComponent implements Composite
 		int xCoord = e.getX() / SQUARE_SIDE;
 		int yCoord = e.getY() / SQUARE_SIDE;
 		super.mouseClicked(e);
-
-//		if (board.isCheckmate(nextTurn)) {
-//		    displayCheckmate();
-//		}
 
 		if ((xCoord <= 7 && xCoord >= 0) && (yCoord >= 0 && yCoord <= 7)) {
 
@@ -139,7 +137,7 @@ public class ChessComponent extends JComponent implements Composite
 	    String[] options = { "OK" };
 	    JOptionPane.showOptionDialog(checkPopUp, enemyKingColor + " king is in Check!!!", "Chess Pop Up",
 					 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-					 iconMaping(new King(board, Piece.KING, enemyColor)), options, options[0]);
+					 iconMapping(new King(board, Piece.KING, enemyColor)), options, options[0]);
 	}
     }
 
@@ -155,9 +153,9 @@ public class ChessComponent extends JComponent implements Composite
 	}
 	if (board.isItCheck(playerThatMovedLast)) {
 	    String[] options = { "OK" };
-	    JOptionPane.showOptionDialog(checkmatePopUp, enemyKingColor + "is in Checkmate  ;) ", "Chess Pop Up",
+	    JOptionPane.showOptionDialog(checkmatePopUp, enemyKingColor + " is in Checkmate  ;) ", "Chess Pop Up",
 					 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-					 iconMaping(new King(board, Piece.KING, enemyColor)), options, options[0]);
+					 iconMapping(new King(board, Piece.KING, enemyColor)), options, options[0]);
 	}
     }
 
@@ -186,13 +184,12 @@ public class ChessComponent extends JComponent implements Composite
 		}
 	    }
 	}
-
     }
 
     /**
-     * Draws backgrund squres
+     * Draws background squares
      */
-    private void drawBackgrundBlock(int row, int col, Graphics2D g2d) {
+    private void drawBackgroundBlock(int row, int col, Graphics2D g2d) {
 
 	int startY = row * SQUARE_SIDE;
 	int startX = col * SQUARE_SIDE;
@@ -212,13 +209,12 @@ public class ChessComponent extends JComponent implements Composite
 		if (row % 2 == 0) {
 
 		    if ((column % 2) == 1) {
-			drawBackgrundBlock(row, column, g2d);
+			drawBackgroundBlock(row, column, g2d);
 		    }
 		} else {
 
 		    if ((column % 2) != 1) {
-			drawBackgrundBlock(row, column, g2d);
-
+			drawBackgroundBlock(row, column, g2d);
 		    }
 		}
 	    }
@@ -226,29 +222,29 @@ public class ChessComponent extends JComponent implements Composite
     }
 
     /**
-     * Gets the corrent icon from iconMapping and then draws it, at the correct coordinates
+     * Gets the correct icon from iconMapping and then draws it, at the correct coordinates
      */
     private void drawPieceImage(int x, int y, ChessPiece chessPiece, JComponent jComponent, Graphics2D g2d) {
 
 	g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-	iconMaping(chessPiece).paintIcon(jComponent, g2d, x, y);
+	iconMapping(chessPiece).paintIcon(jComponent, g2d, x, y);
     }
 
     /**
-     * Maps a chesspiece to a icon
+     * Maps a ChessPiece to a icon
      */
-    private Icon iconMaping(ChessPiece chessPiece) {
+    private Icon iconMapping(ChessPiece chessPiece) {
 
-	Map<Piece, Icon> iconMaping = new EnumMap<>(Piece.class);
+	Map<Piece, Icon> iconMapping = new EnumMap<>(Piece.class);
 
-	iconMaping.put(Piece.BISHOP, getPieceImage("bishop", chessPiece.getColor()));
-	iconMaping.put(Piece.KING, getPieceImage("king", chessPiece.getColor()));
-	iconMaping.put(Piece.PAWN, getPieceImage("pawn", chessPiece.getColor()));
-	iconMaping.put(Piece.QUEEN, getPieceImage("queen", chessPiece.getColor()));
-	iconMaping.put(Piece.KNIGHT, getPieceImage("hourse", chessPiece.getColor()));
-	iconMaping.put(Piece.ROOK, getPieceImage("tower", chessPiece.getColor()));
+	iconMapping.put(Piece.BISHOP, getPieceImage("bishop", chessPiece.getColor()));
+	iconMapping.put(Piece.KING, getPieceImage("king", chessPiece.getColor()));
+	iconMapping.put(Piece.PAWN, getPieceImage("pawn", chessPiece.getColor()));
+	iconMapping.put(Piece.QUEEN, getPieceImage("queen", chessPiece.getColor()));
+	iconMapping.put(Piece.KNIGHT, getPieceImage("hourse", chessPiece.getColor()));
+	iconMapping.put(Piece.ROOK, getPieceImage("tower", chessPiece.getColor()));
 
-	return iconMaping.get(chessPiece.getPiece());
+	return iconMapping.get(chessPiece.getPiece());
     }
 
     /**

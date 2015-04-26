@@ -3,8 +3,8 @@ package se.liu.ida.project.tddd78.chess.model;
 import java.awt.*;
 
 /**
- * The interface declaretes all the different methods witch are used by the different abstract chess pieces
- * involved in this chessgame.
+ * The interface declares some of the different methods which are implemented by the different abstract chess pieces
+ * and later the specific Piece.
  */
 public interface ChessPiece {
 

@@ -3,8 +3,8 @@ package se.liu.ida.project.tddd78.chess.model;
 import java.awt.*;
 
 /**
- * The empty "piece" act like all the other abstract chesspieces but are used to represent empty
- * cordinates on the gamefield.
+ * The empty "piece" act like all the other AbstractChessPieces but are used to represent empty
+ * coordinates on the game field.
  */
 public class Empty extends AbstractChessPiece
 {

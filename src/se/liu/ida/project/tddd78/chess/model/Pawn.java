@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The Pawn class contains the different valid moves for the Pawn and also inharites the valid move method from the
- * AbstractChessPiece class. The pawn can move one step forward except for the first time it moves. At this move the player can
+ * The Pawn class contains the different valid moves for the Pawn and also inherits the valid move method from
+ * AbstractChessPiece. The pawn can move one step forward except for the first time it moves. At this move the player can
  * choose if the Pawn will move one step or two steps forward, the pawn can only take out other pieces in a diagonal direction
- * forward to bouth the left or the right direction. And if the Pawn reaches the other side of the gamefield it will be promoted
+ * forward to both the left or the right direction. And if the Pawn reaches the other side of the game field it will be promoted
  * to the piece of choice. (Queen,Knight,Rook,Bishop)
  */
 public class Pawn extends AbstractChessPiece {
@@ -120,7 +120,7 @@ public class Pawn extends AbstractChessPiece {
 
     private void promotionOfPawn(Color color) {
 	String[] options = { "Queen", "Bishop", "Knight", "Rook" };
-	int optionsChosen = JOptionPane.showOptionDialog(framePopUp, "Select your prefered promotion", "Promotion of Pawn",
+	int optionsChosen = JOptionPane.showOptionDialog(framePopUp, "Select your preferred promotion", "Promotion of Pawn",
 							 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 							 options, options[0]);
 
@@ -158,6 +158,5 @@ public class Pawn extends AbstractChessPiece {
 	super.promotedTo();
 	return this.promotedTo;
     }
-
 }
 

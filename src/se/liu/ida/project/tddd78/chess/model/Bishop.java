@@ -4,7 +4,7 @@ import java.awt.*;
 
 /**
  * This class specifies the valid moves for the Bishop Piece and houses the constructor for the
- * object Bishop. The Bishop can move diagonaly through out the whole gamefield in all directions.
+ * object Bishop. The Bishop can move diagonally through out the whole game field in all directions.
  */
 public class Bishop extends AbstractChessPiece {
 
