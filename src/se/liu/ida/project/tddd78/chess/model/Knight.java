@@ -1,4 +1,4 @@
-package se.liu.ida.dinadress.tddd78.chess;
+package se.liu.ida.project.tddd78.chess.model;
 
 import java.awt.*;
 
@@ -8,7 +8,8 @@ import java.awt.*;
  * and (+-) 1 step in direction it didn't take two step in.
  * Can junp over other pieces, this is unique for the Knight.
  */
-public class Knight extends AbstractChessPiece {
+public class Knight extends AbstractChessPiece
+{
 
     public Knight(Board board, Piece piece, Color color) {
         super(board, piece, color);
@@ -19,8 +20,8 @@ public class Knight extends AbstractChessPiece {
         boolean moveIsValid = false;
         if ((Math.abs(newXCoordinate - oldXCoordinate) == 2 && Math.abs(newYCoordinate - oldYCoordinate) == 1) ||
                 (Math.abs(newYCoordinate - oldYCoordinate) == 2 && Math.abs(newXCoordinate - oldXCoordinate) == 1)) {
-            if (! board.getGameField()[newYCoordinate][newXCoordinate].getColor().equals(this.color) ||
-                    board.getGameField()[newYCoordinate][newXCoordinate].getPiece() == Piece.EMPTY) {
+            if (! board.getPieceOnCoordinate(newYCoordinate, newXCoordinate).getColor().equals(this.color) ||
+                    board.getPieceOnCoordinate(newYCoordinate, newXCoordinate).getPiece() == Piece.EMPTY) {
 
                 moveIsValid = true;
             }

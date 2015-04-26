@@ -1,7 +1,13 @@
-package se.liu.ida.dinadress.tddd78.chess;
+package se.liu.ida.project.tddd78.chess.view;
+
+import se.liu.ida.project.tddd78.chess.model.Board;
 
 import javax.swing.*;
 import java.awt.*;
+
+/**
+ * This class handles, pop up frames, the menu bar and disposing of old frames
+ */
 
 public class ChessFrame extends JFrame {
 
@@ -15,7 +21,7 @@ public class ChessFrame extends JFrame {
 
         this.setJMenuBar(createMenuBar());
 
-        ChessComponent chessComponent = new ChessComponent(board); // add it self to board listener, moved to tetrisComponent
+        ChessComponent chessComponent = new ChessComponent(board);
 
         this.setLayout(new BorderLayout());
 

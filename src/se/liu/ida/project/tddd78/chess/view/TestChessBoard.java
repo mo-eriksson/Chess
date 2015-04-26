@@ -1,13 +1,19 @@
-package se.liu.ida.dinadress.tddd78.chess;
+package se.liu.ida.project.tddd78.chess.view;
 
-import javax.swing.JFrame;
+import se.liu.ida.project.tddd78.chess.model.Board;
+
+import javax.swing.*;
 
 /**
  * This is the mainclass witch runs the game, where the board and the frame is created to the appropiate size.
  */
 public final class TestChessBoard {
 
-    private static final int BOARD_HIEGHT = 8; // Standard size of chess board + one for boarder
+    /*
+    * Standard size of chess board
+    */
+
+    private static final int BOARD_HIEGHT = 8;
     private static final int BOARD_WIDTH = 8;
 
     private TestChessBoard() {}

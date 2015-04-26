@@ -1,4 +1,5 @@
-package se.liu.ida.dinadress.tddd78.chess;
+package se.liu.ida.project.tddd78.chess.model;
+
 import java.awt.*;
 
 /**
@@ -6,7 +7,8 @@ import java.awt.*;
  * valid move method from the AbstractChessPiece class.
  * The king can move one step in all the directions around it self.
  */
-public class King extends AbstractChessPiece {
+public class King extends AbstractChessPiece
+{
 
     public King(Board board, Piece piece, Color color) {
         super(board, piece, color);

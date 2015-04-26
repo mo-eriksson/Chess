@@ -1,4 +1,4 @@
-package se.liu.ida.dinadress.tddd78.chess;
+package se.liu.ida.project.tddd78.chess.model;
 
 import java.awt.*;
 
@@ -7,7 +7,8 @@ import java.awt.*;
  * AbstractChessPiece. And this class inharits both the valid moves for the Rook and Bishop because the
  * Queen can move through out the whole gamefield like both these pieces.
  */
-public class Queen extends AbstractChessPiece {
+public class Queen extends AbstractChessPiece
+{
 
     public Queen(Board board, Piece piece, Color color) {
         super(board, piece, color);
