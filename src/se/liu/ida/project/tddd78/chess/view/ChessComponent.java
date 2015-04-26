@@ -58,9 +58,9 @@ public class ChessComponent extends JComponent implements Composite
 		int yCoord = e.getY() / SQUARE_SIDE;
 		super.mouseClicked(e);
 
-		if (board.isCheckmate(nextTurn)) {
-		    displayCheckmate();
-		}
+//		if (board.isCheckmate(nextTurn)) {
+//		    displayCheckmate();
+//		}
 
 		if ((xCoord <= 7 && xCoord >= 0) && (yCoord >= 0 && yCoord <= 7)) {
 
@@ -87,7 +87,9 @@ public class ChessComponent extends JComponent implements Composite
 
 			    repaint();
 			    displayCheck();
-
+			    if (board.isCheckmate(nextTurn)) {
+				displayCheckmate();
+			    }
 			}
 		    } else {
 
@@ -153,7 +155,7 @@ public class ChessComponent extends JComponent implements Composite
 	}
 	if (board.isItCheck(playerThatMovedLast)) {
 	    String[] options = { "OK" };
-	    JOptionPane.showOptionDialog(checkmatePopUp, enemyKingColor + " Checkmate  ;) ", "Chess Pop Up",
+	    JOptionPane.showOptionDialog(checkmatePopUp, enemyKingColor + "is in Checkmate  ;) ", "Chess Pop Up",
 					 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
 					 iconMaping(new King(board, Piece.KING, enemyColor)), options, options[0]);
 	}

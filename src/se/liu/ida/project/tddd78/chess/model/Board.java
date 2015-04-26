@@ -98,17 +98,18 @@ public class Board
     /**
      * Tries all possible moves for every piece of the users color(the user thats tries to escape checkmate) on the gamefield
      */
-    public boolean isCheckmate(Color selfColor) {
+    public boolean isCheckmate(Color nextPlayerColor) {
 	boolean checkmate = true;
 
 	for (int currentRow = 0; currentRow < boardHeight; currentRow++) {
 	    for (int currentColumn = 0; currentColumn < boardWidth; currentColumn++) {
 		for (int destinationRow = 0; destinationRow < boardHeight; destinationRow++) {
 		    for (int destinationColumn = 0; destinationColumn < boardWidth; destinationColumn++) {
-			if (getPieceOnCoordinate(currentRow, currentColumn).getColor().equals(selfColor)) {
+			if (getPieceOnCoordinate(currentRow, currentColumn).getColor().equals(nextPlayerColor)) {
 			    if (getPieceOnCoordinate(currentRow, currentColumn)
-					.validMove(destinationRow,
-						   destinationColumn, currentColumn, currentRow) && !isItCheck(selfColor)) {
+					.validMove(destinationColumn, destinationRow, currentColumn, currentRow) &&
+				!isItSelfCheck(nextPlayerColor, getPieceOnCoordinate(currentRow, currentColumn), currentColumn,
+					       destinationColumn, currentRow, destinationRow)) {
 				checkmate = false;
 			    }
 			}
@@ -129,8 +130,8 @@ public class Board
 	int kingXPosition = -1;
 	for (int row = 0; row < boardHeight; row++) {
 	    for (int column = 0; column < boardWidth; column++) {
-		if (getPieceOnCoordinate(row, column).getPiece() == Piece.KING && getPieceOnCoordinate(row, column).getColor().equals(
-			color)) {
+		if (getPieceOnCoordinate(row, column).getPiece() == Piece.KING &&
+		    getPieceOnCoordinate(row, column).getColor().equals(color)) {
 		    kingXPosition = column;
 		}
 	    }
@@ -151,8 +152,8 @@ public class Board
 	int kingYPosition = -1;
 	for (int row = 0; row < boardHeight; row++) {
 	    for (int column = 0; column < boardWidth; column++) {
-		if (getPieceOnCoordinate(row, column).getPiece() == Piece.KING && getPieceOnCoordinate(row, column).getColor().equals(
-			color)) {
+		if (getPieceOnCoordinate(row, column).getPiece() == Piece.KING &&
+		    getPieceOnCoordinate(row, column).getColor().equals(color)) {
 		    kingYPosition = row;
 		}
 	    }
@@ -201,8 +202,7 @@ public class Board
 	for (int row = 0; row < boardHeight; row++) {
 	    for (int column = 0; column < boardWidth; column++) {
 
-		if (getPieceOnCoordinate(row, column)
-			.validMove(findKingX(selfColor), findKingY(selfColor), column, row)) {
+		if (getPieceOnCoordinate(row, column).validMove(findKingX(selfColor), findKingY(selfColor), column, row)) {
 		    check = true;
 		}
 	    }
