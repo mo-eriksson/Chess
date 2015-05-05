@@ -24,8 +24,7 @@ import java.util.Map;
  * Also where clicks are registered from the user.
  * All test for general rules is found here.
  */
-public class ChessComponent extends JComponent implements Composite
-{
+public class ChessComponent extends JComponent implements Composite {
 
     private static final int SQUARE_SIDE = 90;
 
@@ -51,8 +50,7 @@ public class ChessComponent extends JComponent implements Composite
 	this.board = board;
 
 	setPreferredSize(new Dimension(board.getBoardWidth() * SQUARE_SIDE, board.getBoardHeight() * SQUARE_SIDE));
-	addMouseListener(new MouseInputAdapter()
-	{
+	addMouseListener(new MouseInputAdapter() {
 
 	    @Override public void mouseClicked(MouseEvent e) {
 
@@ -187,7 +185,7 @@ public class ChessComponent extends JComponent implements Composite
     }
 
     /**
-     * Draws background squares
+     * Draws/Creates black background squares
      */
     private void drawBackgroundBlock(int row, int col, Graphics2D g2d) {
 
@@ -254,6 +252,8 @@ public class ChessComponent extends JComponent implements Composite
 
 	String playerColor = null;
 
+
+
 	BufferedImage myPic = null;
 	if (color.equals(Color.WHITE)) {
 	    playerColor = "white";
@@ -261,8 +261,11 @@ public class ChessComponent extends JComponent implements Composite
 	    playerColor = "black";
 	}
 	try {
+
 	    myPic = ImageIO.read(
-		    new File("src/se/liu/ida/project/tddd78/chess/Chess-Pieces-Images/" + pieceName + playerColor + ".PNG"));
+		    new File("src" + File.separator + "se" + File.separator + "liu" + File.separator + "ida" + File.separator +
+			     "project" + File.separator + "tddd78" + File.separator + "chess" + File.separator +
+			     "Chess-Pieces-Images" + File.separator + pieceName + playerColor + ".PNG"));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}

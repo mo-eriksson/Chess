@@ -990,6 +990,7 @@
           <option name="myAllowedSuppressions">
             <list>
               <option value="UnusedParameters" />
+              <option value="NoopMethodInAbstractClass" />
             </list>
           </option>
         </inspection_tool>

@@ -6,7 +6,6 @@ import java.awt.*;
  * The abstract class houses the common method for more then one piece object and mostly revolves around the different
  * implementation of validMove.
  */
-@SuppressWarnings("NoopMethodInAbstractClass")
 public abstract class AbstractChessPiece implements ChessPiece
 {
 
@@ -81,7 +80,7 @@ public abstract class AbstractChessPiece implements ChessPiece
      * Only need to be implemented for Pawn and other can be empty.
      */
 
-    @Override public void checkForPromotion(int newYCoordinate, int oldYCoordinate) {}
+    @SuppressWarnings({ "NoopMethodInAbstractClass", "SuppressionAnnotation" }) @Override public void checkForPromotion(int newYCoordinate, int oldYCoordinate) {}
 
     public boolean validMoveForBishopDown(int newYCoordinate, int oldYCoordinate, int newXCoordinate, int oldXCoordinate) {
 

@@ -7,12 +7,12 @@ import java.awt.*;
  * No need to catch, should terminate program.
  */
 
-@SuppressWarnings("UncheckedExceptionClass")
+@SuppressWarnings({ "UncheckedExceptionClass", "UnusedDeclaration", "SuppressionAnnotation" })
 public class MissingKingException extends RuntimeException {
     /**
      * Just for information when debugging.
      */
-    @SuppressWarnings({ "UnusedDeclaration", "FieldCanBeLocal" }) private final Color ofColor;
+    @SuppressWarnings("FieldCanBeLocal") private final Color ofColor;
 
 	public MissingKingException(String message, Color ofColor) {
 	    super(message);

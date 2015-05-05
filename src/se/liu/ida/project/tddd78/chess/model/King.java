@@ -4,7 +4,7 @@ import java.awt.*;
 
 /**
  * The King class contains the different valid moves on the game field. It inherits the
- * valid move method from the AbstractChessPiece class.
+ * valid move method from the interface just as all other pieces.
  * The king can move one step in all the directions around itself.
  */
 public class King extends AbstractChessPiece

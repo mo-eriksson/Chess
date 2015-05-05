@@ -5,6 +5,7 @@ import se.liu.ida.project.tddd78.chess.model.Board;
 /**
  * This is the main class witch runs the game, where the board and the frame is created to the appropriate size.
  */
+@SuppressWarnings({ "UnusedAssignment", "SuppressionAnnotation" })
 public final class TestChessBoard {
 
     /*
@@ -25,7 +26,7 @@ public final class TestChessBoard {
              */
 
             Board chessBoard = new Board(BOARD_HEIGHT, BOARD_WIDTH);
-            @SuppressWarnings("UnusedAssignment") ChessFrame chessFrame = new ChessFrame("Chess", chessBoard);
+            ChessFrame chessFrame = new ChessFrame("Chess", chessBoard);
         }
     }
 
